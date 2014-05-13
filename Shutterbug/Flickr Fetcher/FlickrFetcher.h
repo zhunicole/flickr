@@ -56,6 +56,5 @@ typedef enum {
 + (NSDictionary *)sortPlacesByCountries:(NSArray *)places;
 + (NSArray *) getCountriesFromDict:(NSDictionary *)countries;
 
-//+ (void) downloadAndGetTopPlaces:(void (^)(NSArray *photos, NSError *error))completionHandler;
 
 @end

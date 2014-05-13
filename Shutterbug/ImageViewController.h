@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PhotosTVC.h"
+#import "FlickrFetcher.h"
 
-@interface ImageViewController : UIViewController
+@interface ImageViewController : PhotosTVC
 
 // Model for this MVC ... URL of an image to display
 @property (nonatomic, strong) NSURL *imageURL;
+@property (nonatomic, strong) NSDictionary *place;
+
 
 @end

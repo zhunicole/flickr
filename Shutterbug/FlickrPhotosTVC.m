@@ -67,18 +67,18 @@
     if ([detailVC isKindOfClass:[UINavigationController class]]) {
         detailVC = [((UINavigationController *)detailVC).viewControllers firstObject];
     }
-    if ([detailVC isKindOfClass:[ImageViewController class]]) {
-        [self prepareImageViewController:detailVC toDisplayPhoto:self.places[indexPath.row]];
+    if ([detailVC isKindOfClass:[PhotosTVC class]]) {
+        [self preparePhotosTVC:detailVC toDisplayPhotoForPlace:self.places[indexPath.row]];
     }
 }
 
 #pragma mark - Navigation
 
-- (void)prepareImageViewController:(ImageViewController *)ivc
-                    toDisplayPhoto:(NSDictionary *)photo
+- (void)preparePhotosTVC:(ImageViewController *)ivc
+                    toDisplayPhotoForPlace:(NSDictionary *)place
 {
-    ivc.imageURL = [FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatLarge];
-    ivc.title = [photo valueForKeyPath:FLICKR_PHOTO_TITLE];
+
+    ivc.place = place;
 }
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -90,13 +90,14 @@
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         if (indexPath) {
             if ([segue.identifier isEqualToString:@"Display Photo"]) {
-                if ([segue.destinationViewController isKindOfClass:[ImageViewController class]]) {
-                    [self prepareImageViewController:segue.destinationViewController
-                                      toDisplayPhoto:self.places[indexPath.row]];
+                if ([segue.destinationViewController isKindOfClass:[PhotosTVC class]]) {
+                    [self preparePhotosTVC:segue.destinationViewController
+                                      toDisplayPhotoForPlace:self.placesDict[self.countries[indexPath.section]][indexPath.row]];
                 }
             }
         }
     }
 }
+
 
 @end

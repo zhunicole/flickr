@@ -30,129 +30,126 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.scrollView addSubview:self.imageView];
+    [self fetchPhotos];
+//    [self.scrollView addSubview:self.imageView];
 }
 
 #pragma mark - Properties
 
 // lazy instantiation
 
-- (UIImageView *)imageView
-{
-    if (!_imageView) _imageView = [[UIImageView alloc] init];
-    return _imageView;
-}
-
-// image property does not use an _image instance variable
-// instead it just reports/sets the image in the imageView property
-// thus we don't need @synthesize even though we implement both setter and getter
-
-- (UIImage *)image
-{
-    return self.imageView.image;
-}
-
-- (void)setImage:(UIImage *)image
-{
-    // self.scrollView could be nil here if outlet-setting has not happened yet
-    self.scrollView.zoomScale = 1;
-    self.scrollView.contentSize = image ? image.size : CGSizeZero;
-
-    self.imageView.image = image; // does not change the frame of the UIImageView
-    [self.imageView sizeToFit];   // update the frame of the UIImageView
-
-    [self.spinner stopAnimating];
-}
-
-- (void)setScrollView:(UIScrollView *)scrollView
-{
-    _scrollView = scrollView;
-    
-    // next three lines are necessary for zooming
-    _scrollView.minimumZoomScale = 0.2;
-    _scrollView.maximumZoomScale = 2.0;
-    _scrollView.delegate = self;
-
-    // next line is necessary in case self.image gets set before self.scrollView does
-    // for example, prepareForSegue:sender: is called before outlet-setting phase
-    self.scrollView.contentSize = self.image ? self.image.size : CGSizeZero;
-}
-
+//- (UIImageView *)imageView
+//{
+//    if (!_imageView) _imageView = [[UIImageView alloc] init];
+//    return _imageView;
+//}
+//
+//// image property does not use an _image instance variable
+//// instead it just reports/sets the image in the imageView property
+//// thus we don't need @synthesize even though we implement both setter and getter
+//
+//- (UIImage *)image
+//{
+//    return self.imageView.image;
+//}
+//
+//- (void)setImage:(UIImage *)image
+//{
+//    // self.scrollView could be nil here if outlet-setting has not happened yet
+//    self.scrollView.zoomScale = 1;
+//    self.scrollView.contentSize = image ? image.size : CGSizeZero;
+//
+//    self.imageView.image = image; // does not change the frame of the UIImageView
+//    [self.imageView sizeToFit];   // update the frame of the UIImageView
+//
+//    [self.spinner stopAnimating];
+//}
+//
+//- (void)setScrollView:(UIScrollView *)scrollView
+//{
+//    _scrollView = scrollView;
+//    
+//    // next three lines are necessary for zooming
+//    _scrollView.minimumZoomScale = 0.2;
+//    _scrollView.maximumZoomScale = 2.0;
+//    _scrollView.delegate = self;
+//
+//    // next line is necessary in case self.image gets set before self.scrollView does
+//    // for example, prepareForSegue:sender: is called before outlet-setting phase
+//    self.scrollView.contentSize = self.image ? self.image.size : CGSizeZero;
+//}
+//
 #pragma mark - UIScrollViewDelegate
 
 // mandatory zooming method in UIScrollViewDelegate protocol
 
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
-{
-    return self.imageView;
-}
+//- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+//{
+//    return self.imageView;
+//}
 
 #pragma mark - Setting the Image from the Image's URL
+
+static const int MAX_PHOTO_RESULTS = 50;
+
+/*similar to fetchPlaces*/
+- (IBAction)fetchPhotos {
+    [self.refreshControl beginRefreshing];
+    //what does this do?
+    [self.tableView setContentOffset:CGPointMake(0, -self.refreshControl.frame.size.height) animated:YES];
+
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
+    NSURLSessionDownloadTask *task = [session downloadTaskWithURL:[FlickrFetcher URLforPhotosInPlace:[self.place valueForKeyPath:FLICKR_PLACE_ID] maxResults:MAX_PHOTO_RESULTS]
+                                                completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+                                                    NSArray *photos;
+                                                    if (!error) {
+                                                        photos = [[NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:location]
+                                                                                                  options:0
+                                                                                                    error:&error] valueForKeyPath:FLICKR_RESULTS_PHOTOS];
+                                                    }
+                                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                                        self.photos = photos;
+                                                        [self.refreshControl endRefreshing];
+                                                        NSLog(@"photos: %@", self.photos);
+                                                    });
+                                                }];
+    [task resume];
+
+}
+
+
 
 - (void)setImageURL:(NSURL *)imageURL
 {
     _imageURL = imageURL;
     //    self.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:self.imageURL]]; // blocks main queue!
-    [self startDownloadingImage];
 }
 
-- (void)startDownloadingImage
-{
-    self.image = nil;
-
-    if (self.imageURL)
-    {
-        [self.spinner startAnimating];
-
-        NSURLRequest *request = [NSURLRequest requestWithURL:self.imageURL];
-        
-        // another configuration option is backgroundSessionConfiguration (multitasking API required though)
-        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-        
-        // create the session without specifying a queue to run completion handler on (thus, not main queue)
-        // we also don't specify a delegate (since completion handler is all we need)
-        NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
-
-        NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request
-            completionHandler:^(NSURL *localfile, NSURLResponse *response, NSError *error) {
-                // this handler is not executing on the main queue, so we can't do UI directly here
-                if (!error) {
-                    if ([request.URL isEqual:self.imageURL]) {
-                        // UIImage is an exception to the "can't do UI here"
-                        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:localfile]];
-                        // but calling "self.image =" is definitely not an exception to that!
-                        // so we must dispatch this back to the main queue
-                        dispatch_async(dispatch_get_main_queue(), ^{ self.image = image; });
-                    }
-                }
-        }];
-        [task resume]; // don't forget that all NSURLSession tasks start out suspended!
-    }
-}
 
 #pragma mark - UISplitViewControllerDelegate
 
-- (BOOL)splitViewController:(UISplitViewController *)svc
-   shouldHideViewController:(UIViewController *)vc
-              inOrientation:(UIInterfaceOrientation)orientation
-{
-    return UIInterfaceOrientationIsPortrait(orientation);
-}
-
-- (void)splitViewController:(UISplitViewController *)svc
-     willHideViewController:(UIViewController *)aViewController
-          withBarButtonItem:(UIBarButtonItem *)barButtonItem
-       forPopoverController:(UIPopoverController *)pc
-{
-    self.navigationItem.leftBarButtonItem = barButtonItem;
-    barButtonItem.title = aViewController.title;
-}
-
-- (void)splitViewController:(UISplitViewController *)svc
-     willShowViewController:(UIViewController *)aViewController
-  invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
-{
-    self.navigationItem.leftBarButtonItem = nil;
-}
+//- (BOOL)splitViewController:(UISplitViewController *)svc
+//   shouldHideViewController:(UIViewController *)vc
+//              inOrientation:(UIInterfaceOrientation)orientation
+//{
+//    return UIInterfaceOrientationIsPortrait(orientation);
+//}
+//
+//- (void)splitViewController:(UISplitViewController *)svc
+//     willHideViewController:(UIViewController *)aViewController
+//          withBarButtonItem:(UIBarButtonItem *)barButtonItem
+//       forPopoverController:(UIPopoverController *)pc
+//{
+//    self.navigationItem.leftBarButtonItem = barButtonItem;
+//    barButtonItem.title = aViewController.title;
+//}
+//
+//- (void)splitViewController:(UISplitViewController *)svc
+//     willShowViewController:(UIViewController *)aViewController
+//  invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
+//{
+//    self.navigationItem.leftBarButtonItem = nil;
+//}
 
 @end
