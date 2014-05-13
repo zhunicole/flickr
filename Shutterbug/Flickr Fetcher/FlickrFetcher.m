@@ -102,27 +102,11 @@
     return [place valueForKeyPath:FLICKR_PLACE_REGION_NAME];
 }
 
-+ (void) downloadAndGetTopPlaces:(void (^)(NSArray *photos, NSError *error))completionHandler {
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
-    NSURLSessionDownloadTask *task = [session downloadTaskWithURL:[FlickrFetcher URLforTopPlaces]
-                                                completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-                                                    NSArray *places;
-                                                    if (!error) {
-                                                        places = [[NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:location]
-                                                                                                  options:0
-                                                                                                    error:&error] valueForKeyPath:FLICKR_RESULTS_PLACES];
-                                                    }
-                                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                                        completionHandler(places, error);
-                                                    });
-                                                }];
-    [task resume];}
 
+
+//place url
 //if two objects, then no region, if so, then is secound one
-
-//always city and region
-
-//some have city state and country
+//always country, and city
 
 
 @end
