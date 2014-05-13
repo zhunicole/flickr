@@ -99,14 +99,69 @@
 
 + (NSString *)extractRegionNameFromPlaceInformation:(NSDictionary *)place
 {
-    return [place valueForKeyPath:FLICKR_PLACE_REGION_NAME];
+    return [place valueForKeyPath:FLICKR_PLACE_NAME];
+}
+
++ (NSString *)extractCountryNameFromPlaceInformation:(NSDictionary*)place
+{
+    return [[[place valueForKeyPath:FLICKR_PLACE_NAME] componentsSeparatedByString:@", "] lastObject];
+}
+
++ (NSString *)extractTitleFromPlaceInformation:(NSDictionary*)place {
+    NSString *title;
+    title =[[[place valueForKeyPath:FLICKR_PLACE_NAME] componentsSeparatedByString:@", "] firstObject];
+    return title;
+}
+
++ (NSString *)extractSubtitleFromPlaceInformation:(NSDictionary*)place {
+    
+    NSArray *contents =[[place valueForKeyPath:FLICKR_PLACE_NAME] componentsSeparatedByString:@", "];
+    //if there is region name
+    if ([contents count] > 2) {
+        NSRange range;
+        range.location = 1;
+        range.length = 2;
+        return [[contents subarrayWithRange:range] componentsJoinedByString:@", "];
+    } else {
+        return [FlickrFetcher extractCountryNameFromPlaceInformation:place];
+    }
+}
+
+/*alphabetically sorting the places*/
++ (NSArray *)sortPlaces:(NSArray*)places {
+    NSArray *sorted;
+    
+    sorted = [places sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        NSString *stringA = [obj1 valueForKeyPath:FLICKR_PLACE_NAME];
+        NSString *stringB = [obj2 valueForKeyPath:FLICKR_PLACE_NAME];
+        return [stringA localizedCaseInsensitiveCompare:stringB];
+    }];
+    return sorted;
 }
 
 
++ (NSDictionary *)sortPlacesByCountries:(NSArray *)places
+{
+    NSMutableDictionary *placesDict = [NSMutableDictionary dictionary];
+    for (NSDictionary *place in places) {
+        NSString *country = [FlickrFetcher extractCountryNameFromPlaceInformation:place];
+        NSMutableArray *places = placesDict[country];
+        if (!places) {
+            places = [NSMutableArray array];
+            placesDict[country] = places;
+        }
+        [places addObject:place];
+    }
+    return placesDict;
+}
 
-//place url
-//if two objects, then no region, if so, then is secound one
-//always country, and city
-
+/*returns an array of sorted countries that are in the dictionary*/
++ (NSArray *) getCountriesFromDict:(NSDictionary *)countriesDict {
+    NSArray *countries = [countriesDict allKeys];
+    countries = [countries sortedArrayUsingComparator:^(id a, id b) {
+        return [a compare:b options:NSCaseInsensitiveSearch];
+    }];
+    return countries;
+}
 
 @end

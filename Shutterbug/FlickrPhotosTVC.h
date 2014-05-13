@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface FlickrPhotosTVC : UITableViewController
-@property (strong, nonatomic) NSArray *photos; // of Flickr photo NSDictionary
+@property (strong, nonatomic) NSArray *places; // of Flickr photo NSDictionary
+
 @end

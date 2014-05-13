@@ -48,6 +48,13 @@ typedef enum {
 
 + (NSString *)extractNameOfPlace:(id)placeId fromPlaceInformation:(NSDictionary *)place;
 + (NSString *)extractRegionNameFromPlaceInformation:(NSDictionary *)placeInformation;
++ (NSString *)extractCountryNameFromPlaceInformation:(NSDictionary *)place;
++ (NSString *)extractTitleFromPlaceInformation:(NSDictionary*)place;
++ (NSString *)extractSubtitleFromPlaceInformation:(NSDictionary*)place;
+
++ (NSArray *)sortPlaces:(NSArray*)places;
++ (NSDictionary *)sortPlacesByCountries:(NSArray *)places;
++ (NSArray *) getCountriesFromDict:(NSDictionary *)countries;
 
 //+ (void) downloadAndGetTopPlaces:(void (^)(NSArray *photos, NSError *error))completionHandler;
 

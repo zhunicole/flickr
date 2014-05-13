@@ -12,28 +12,33 @@
 
 @interface FlickrPhotosTVC ()
 
+@property (nonatomic, strong) NSDictionary *placesDict;   //by country
+@property (nonatomic, strong) NSArray *countries;
+
 @end
 
 @implementation FlickrPhotosTVC
 
-- (void)setPhotos:(NSArray *)photos
+- (void)setPlaces:(NSArray *)places
 {
-    _photos = photos;
+    _places = places;
+    _places = [FlickrFetcher sortPlaces:places];
+    self.placesDict = [FlickrFetcher sortPlacesByCountries:_places];
+    self.countries = [FlickrFetcher getCountriesFromDict:self.placesDict];
     [self.tableView reloadData];
+
 }
 
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
-    return 1;
+    return self.countries.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    return [self.photos count];
+   return [self.placesDict[self.countries[section]] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -41,11 +46,19 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Flickr Photo Cell" forIndexPath:indexPath];
     
     // Configure the cell...
-    NSDictionary *photo = self.photos[indexPath.row];
-    cell.textLabel.text = [photo valueForKeyPath:FLICKR_PHOTO_TITLE];
-    cell.detailTextLabel.text = [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
+    NSLog(@"my places: %@ at row %d",self.places, indexPath.row);
+//    dictionary of self.places sorted places
+    
+    NSDictionary *places = self.places[indexPath.row];
+
+    cell.textLabel.text = [FlickrFetcher extractTitleFromPlaceInformation:places];
+    cell.detailTextLabel.text = [places valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
     
     return cell;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return self.countries[section];
 }
 
 #pragma mark - UITableViewDelegate
@@ -57,7 +70,7 @@
         detailVC = [((UINavigationController *)detailVC).viewControllers firstObject];
     }
     if ([detailVC isKindOfClass:[ImageViewController class]]) {
-        [self prepareImageViewController:detailVC toDisplayPhoto:self.photos[indexPath.row]];
+        [self prepareImageViewController:detailVC toDisplayPhoto:self.places[indexPath.row]];
     }
 }
 
@@ -81,7 +94,7 @@
             if ([segue.identifier isEqualToString:@"Display Photo"]) {
                 if ([segue.destinationViewController isKindOfClass:[ImageViewController class]]) {
                     [self prepareImageViewController:segue.destinationViewController
-                                      toDisplayPhoto:self.photos[indexPath.row]];
+                                      toDisplayPhoto:self.places[indexPath.row]];
                 }
             }
         }

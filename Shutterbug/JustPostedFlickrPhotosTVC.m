@@ -14,36 +14,32 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self fetchPhotos];
+    [self fetchPlaces];
+
 }
 
-- (IBAction)fetchPhotos
+- (IBAction)fetchPlaces
 {
+    [self.refreshControl beginRefreshing];
+    //what does this do?
+    [self.tableView setContentOffset:CGPointMake(0, -self.refreshControl.frame.size.height) animated:YES];
     NSURL *url = [FlickrFetcher URLforRecentGeoreferencedPhotos];
-    
     if (url) {
         dispatch_queue_t fetchQueue = dispatch_queue_create("flickr info fetch", NULL);
         dispatch_async(fetchQueue, ^{
-                NSData *jsonResults = [NSData dataWithContentsOfURL:url];
-                NSDictionary *propertyListResults = [NSJSONSerialization JSONObjectWithData:jsonResults
-                                                                                    options:0
-                                                                                      error:NULL];
-        
-        // another configuration option is backgroundSessionConfiguration (multitasking API required though)
-        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-        
-        // create the session without specifying a queue to run completion handler on (thus, not main queue)
-        // we also don't specify a delegate (since completion handler is all we need)
-        NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
-        NSURLSessionDownloadTask *task = [session downloadTaskWithURL:[FlickrFetcher URLforTopPlaces]
+            NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+            NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+            NSURLSessionDownloadTask *task = [session downloadTaskWithURL:[FlickrFetcher URLforTopPlaces]
                                                     completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-                                                        NSArray *photos;
+                                                        NSArray *places;
                                                         if (!error) {
-                                                            photos = [propertyListResults valueForKeyPath:FLICKR_RESULTS_PHOTOS];
+                                                            places = [[NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:location]
+                                                                                                      options:0
+                                                                                                        error:&error] valueForKeyPath:FLICKR_RESULTS_PLACES];
                                                         }
                                                         dispatch_async(dispatch_get_main_queue(), ^{
+                                                            self.places = places;
                                                             [self.refreshControl endRefreshing];
-                                                            self.photos = photos;
                                                         });
                                                     }];
             [task resume];
