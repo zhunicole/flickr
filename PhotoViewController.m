@@ -56,10 +56,6 @@
     return _imageView;
 }
 
-// image property does not use an _image instance variable
-// instead it just reports/sets the image in the imageView property
-// thus we don't need @synthesize even though we implement both setter and getter
-
 - (UIImage *)image
 {
     return self.imageView.image;
@@ -67,7 +63,6 @@
 
 - (void)setImage:(UIImage *)image
 {
-    // self.scrollView could be nil here if outlet-setting has not happened yet
     self.scrollView.zoomScale = 1;
     self.scrollView.contentSize = image ? image.size : CGSizeZero;
 
@@ -75,6 +70,28 @@
     [self.imageView sizeToFit];   // update the frame of the UIImageView
 
     [self.spinner stopAnimating];
+    [self autozoomImage];
+
+}
+
+- (void) autozoomImage {
+    double tabBarHeight = self.tabBarController.tabBar.frame.size.height;
+    double statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+    double navBarHeight = self.navigationController.navigationBar.frame.size.height;
+    double imageViewHeight = self.imageView.image.size.height;
+    double imageViewWidth = self.imageView.image.size.width;
+    double scrollViewWidth = self.scrollView.bounds.size.width;
+    double scrollViewHeight = self.scrollView.bounds.size.height;
+    
+    double maxWidth = scrollViewWidth / imageViewWidth;
+    double maxHeight = (scrollViewHeight - navBarHeight - tabBarHeight - statusBarHeight) / imageViewHeight;
+    if (maxWidth < maxHeight) {
+        NSLog(@"scaling to width");
+        self.scrollView.zoomScale = maxWidth;
+    } else {
+        NSLog(@"scaling to height");
+        self.scrollView.zoomScale = maxHeight;
+    }
 }
 
 - (void)setScrollView:(UIScrollView *)scrollView
