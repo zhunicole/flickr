@@ -111,7 +111,7 @@ static const int MAX_PHOTO_RESULTS = 50;
                                                     dispatch_async(dispatch_get_main_queue(), ^{
                                                         self.photos = photos;
                                                         [self.refreshControl endRefreshing];
-                                                        NSLog(@"photos: %@", self.photos);
+//                                                        NSLog(@"photos: %@", self.photos);
                                                     });
                                                 }];
     [task resume];

@@ -66,12 +66,38 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Photo Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier
-                                                            forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     NSDictionary *photo = self.photos[indexPath.row];
-    cell.textLabel.text = [photo valueForKeyPath:FLICKR_PHOTO_TITLE];
-    cell.detailTextLabel.text = [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
+    cell.textLabel.text = [self titleOfPhoto:photo];
+    cell.detailTextLabel.text = [self subtitleOfPhoto:photo];
     return cell;
+}
+
+- (NSString *) titleOfPhoto:(NSDictionary *)photo {
+    NSString *title;
+    title = [photo valueForKeyPath:FLICKR_PHOTO_TITLE];
+    if ([title length]) {
+        return title;
+    } else if ([[photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION] length]){
+        return [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
+    } else {
+        return @"Unknown";
+    }
+}
+
+-(NSString *) subtitleOfPhoto:(NSDictionary*)photo {
+    NSString *descrip = [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
+
+    if ([descrip length]){
+        //if is already used as title then ignore
+        if ([descrip isEqualToString:[self titleOfPhoto:photo]]) {
+            return @"";
+        } else {
+            return descrip;
+        }
+    } else {
+        return @"";
+    }
 }
 
 /*
