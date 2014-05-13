@@ -142,7 +142,7 @@
     if ([detailVC isKindOfClass:[UINavigationController class]]) {
         detailVC = [((UINavigationController *)detailVC).viewControllers firstObject];
     }
-    if ([detailVC isKindOfClass:[PhotosTVC class]]) {
+    if ([detailVC isKindOfClass:[PhotoViewController class]]) {
         [self prepareVC:detailVC toDisplayPhoto:self.photos[indexPath.row]];
     }
     
