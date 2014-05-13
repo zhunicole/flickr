@@ -135,6 +135,7 @@
 
 #pragma mark - UITableViewDelegate
 
+/* For ipad*/
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     id detailVC = [self.splitViewController.viewControllers lastObject];
@@ -144,6 +145,7 @@
     if ([detailVC isKindOfClass:[PhotosTVC class]]) {
         [self prepareVC:detailVC toDisplayPhoto:self.photos[indexPath.row]];
     }
+    
 }
 
 

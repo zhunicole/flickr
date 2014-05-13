@@ -205,6 +205,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="mxB-Rj-CfZ"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
                         <outlet property="scrollView" destination="f4A-to-kOx" id="QEK-eK-RNA"/>
                         <outlet property="spinner" destination="osF-fC-Svy" id="SbZ-Tc-fK3"/>

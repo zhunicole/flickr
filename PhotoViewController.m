@@ -65,7 +65,6 @@
 {
     self.scrollView.zoomScale = 1;
     self.scrollView.contentSize = image ? image.size : CGSizeZero;
-
     self.imageView.image = image; // does not change the frame of the UIImageView
     [self.imageView sizeToFit];   // update the frame of the UIImageView
 
@@ -77,6 +76,7 @@
 - (void) autozoomImage {
     double tabBarHeight = self.tabBarController.tabBar.frame.size.height;
     double statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+    double statusBarWidth = [UIApplication sharedApplication].statusBarFrame.size.width;
     double navBarHeight = self.navigationController.navigationBar.frame.size.height;
     double imageViewHeight = self.imageView.image.size.height;
     double imageViewWidth = self.imageView.image.size.width;
@@ -84,7 +84,8 @@
     double scrollViewHeight = self.scrollView.bounds.size.height;
     
     double maxWidth = scrollViewWidth / imageViewWidth;
-    double maxHeight = (scrollViewHeight - navBarHeight - tabBarHeight - statusBarHeight) / imageViewHeight;
+    double maxHeight = (scrollViewHeight - navBarHeight - tabBarHeight - MIN(statusBarHeight, statusBarWidth) )/ imageViewHeight;
+    
     if (maxWidth < maxHeight) {
         NSLog(@"scaling to width");
         self.scrollView.zoomScale = maxWidth;
