@@ -44,14 +44,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Flickr Photo Cell" forIndexPath:indexPath];
+
+    NSString *country = self.countries[indexPath.section];
+    NSDictionary *places = self.placesDict[country][indexPath.row];
+
     
-    // Configure the cell...
-//    dictionary of self.places sorted places
-    int index = [indexPath section] + [indexPath row];
-    NSLog(@"my places:  at row %d", index);
-
-    NSDictionary *places = self.places[index];
-
     cell.textLabel.text = [FlickrFetcher extractTitleFromPlaceInformation:places];
     cell.detailTextLabel.text = [places valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
     
