@@ -87,10 +87,8 @@
     double maxHeight = (scrollViewHeight - navBarHeight - tabBarHeight - MIN(statusBarHeight, statusBarWidth) )/ imageViewHeight;
     
     if (maxWidth < maxHeight) {
-        NSLog(@"scaling to width");
         self.scrollView.zoomScale = maxWidth;
     } else {
-        NSLog(@"scaling to height");
         self.scrollView.zoomScale = maxHeight;
     }
 }

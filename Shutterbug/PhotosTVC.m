@@ -8,6 +8,7 @@
 
 #import "PhotosTVC.h"
 #import "PhotoViewController.h"
+#import "RecentViewController.h"
 
 @interface PhotosTVC ()
 
@@ -156,6 +157,7 @@
 {
     ivc.imageURL = [FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatLarge];
     ivc.imageTitle = [self titleOfPhoto:photo];
+    [RecentViewController addRecentPhoto:photo];
 }
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation

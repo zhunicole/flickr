@@ -165,6 +165,9 @@
     return countries;
 }
 
++ (NSString *) photoID: (NSDictionary*)photo {
+    return [photo valueForKeyPath:FLICKR_PHOTO_ID];
+}
 
 
 

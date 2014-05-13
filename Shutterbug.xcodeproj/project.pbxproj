@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		D163DEBF1921CCD60061D957 /* PhotosTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D163DEBE1921CCD60061D957 /* PhotosTVC.m */; };
 		D163DEC51921F4260061D957 /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D163DEC41921F4260061D957 /* PhotoViewController.m */; };
+		D1AFD4151922B825006C8265 /* RecentTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D1AFD4141922B825006C8265 /* RecentTVC.m */; };
+		D1AFD4181922B8E2006C8265 /* RecentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1AFD4171922B8E2006C8265 /* RecentViewController.m */; };
 		EC51E30C191B3281002272BE /* FlickrFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = EC51E30B191B3281002272BE /* FlickrFetcher.m */; };
 		EC5B245819141C6000B822C3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC5B245719141C5F00B822C3 /* Foundation.framework */; };
 		EC5B245A19141C6000B822C3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC5B245919141C6000B822C3 /* CoreGraphics.framework */; };
@@ -44,6 +46,10 @@
 		D163DEBE1921CCD60061D957 /* PhotosTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotosTVC.m; sourceTree = "<group>"; };
 		D163DEC31921F4260061D957 /* PhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotoViewController.h; path = ../PhotoViewController.h; sourceTree = "<group>"; };
 		D163DEC41921F4260061D957 /* PhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoViewController.m; path = ../PhotoViewController.m; sourceTree = "<group>"; };
+		D1AFD4131922B825006C8265 /* RecentTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentTVC.h; sourceTree = "<group>"; };
+		D1AFD4141922B825006C8265 /* RecentTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentTVC.m; sourceTree = "<group>"; };
+		D1AFD4161922B8E2006C8265 /* RecentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentViewController.h; sourceTree = "<group>"; };
+		D1AFD4171922B8E2006C8265 /* RecentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentViewController.m; sourceTree = "<group>"; };
 		EC51E309191B3281002272BE /* FlickrAPIKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrAPIKey.h; sourceTree = "<group>"; };
 		EC51E30A191B3281002272BE /* FlickrFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrFetcher.h; sourceTree = "<group>"; };
 		EC51E30B191B3281002272BE /* FlickrFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrFetcher.m; sourceTree = "<group>"; };
@@ -141,6 +147,10 @@
 				EC5B249B1914207D00B822C3 /* RenderPhotosTVC.m */,
 				D163DEC31921F4260061D957 /* PhotoViewController.h */,
 				D163DEC41921F4260061D957 /* PhotoViewController.m */,
+				D1AFD4131922B825006C8265 /* RecentTVC.h */,
+				D1AFD4141922B825006C8265 /* RecentTVC.m */,
+				D1AFD4161922B8E2006C8265 /* RecentViewController.h */,
+				D1AFD4171922B8E2006C8265 /* RecentViewController.m */,
 				EC5B246C19141C6000B822C3 /* Main_iPad.storyboard */,
 				EC754E6D191983DC00058F7D /* Flickr Fetcher */,
 				EC5B247219141C6000B822C3 /* Images.xcassets */,
@@ -291,10 +301,12 @@
 				EC5B249419141D6000B822C3 /* JustPostedFlickrPhotosTVC.m in Sources */,
 				D163DEC51921F4260061D957 /* PhotoViewController.m in Sources */,
 				EC5B249119141C9000B822C3 /* FlickrPhotosTVC.m in Sources */,
+				D1AFD4181922B8E2006C8265 /* RecentViewController.m in Sources */,
 				EC5B246819141C6000B822C3 /* AppDelegate.m in Sources */,
 				EC5B249C1914207D00B822C3 /* RenderPhotosTVC.m in Sources */,
 				D163DEBF1921CCD60061D957 /* PhotosTVC.m in Sources */,
 				EC51E30C191B3281002272BE /* FlickrFetcher.m in Sources */,
+				D1AFD4151922B825006C8265 /* RecentTVC.m in Sources */,
 				EC5B246419141C6000B822C3 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
