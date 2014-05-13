@@ -32,13 +32,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="P6g-MI-A1z">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="P6g-MI-A1z">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="P6g-MI-A1z" id="1vU-ni-c9h">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="H50-9p-ufQ" kind="push" identifier="Show Photo" id="QHh-Mi-kXv"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -101,7 +104,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="ypD-vL-Du1" kind="push" identifier="Display Photo" trigger="accessoryAction" id="Jmw-tY-Atg"/>
+                                    <segue destination="ypD-vL-Du1" kind="push" identifier="Display Photo List" trigger="accessoryAction" id="Jmw-tY-Atg"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -122,20 +125,20 @@
             </objects>
             <point key="canvasLocation" x="1850" y="-719"/>
         </scene>
-        <!--Image View Controller-->
+        <!--Render PhotosTVC-->
         <scene sceneID="EAl-Fx-br6">
             <objects>
-                <tableViewController id="ypD-vL-Du1" customClass="ImageViewController" sceneMemberID="viewController">
+                <tableViewController id="ypD-vL-Du1" customClass="RenderPhotosTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="38Z-JI-qHV">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Photo Cell" textLabel="c5N-0V-L3K" detailTextLabel="aU9-R6-2GW" style="IBUITableViewCellStyleSubtitle" id="Fel-UP-eRD">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Photo Cell" textLabel="c5N-0V-L3K" detailTextLabel="aU9-R6-2GW" style="IBUITableViewCellStyleSubtitle" id="Fel-UP-eRD">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fel-UP-eRD" id="629-xk-Pgd">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="c5N-0V-L3K">
@@ -154,6 +157,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="H50-9p-ufQ" kind="push" identifier="Show Photo" id="dAu-h2-sku"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -172,6 +178,41 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tOH-uW-LG0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2288" y="-719"/>
+        </scene>
+        <!--Photo View Controller-->
+        <scene sceneID="o7z-Tz-RoP">
+            <objects>
+                <viewController id="H50-9p-ufQ" customClass="PhotoViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1ub-Jz-G1Z"/>
+                        <viewControllerLayoutGuide type="bottom" id="V0f-Jy-Fo4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6p9-OV-33N">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f4A-to-kOx">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="osF-fC-Svy">
+                                        <rect key="frame" x="142" y="221" width="37" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="mxB-Rj-CfZ"/>
+                    <connections>
+                        <outlet property="scrollView" destination="f4A-to-kOx" id="QEK-eK-RNA"/>
+                        <outlet property="spinner" destination="osF-fC-Svy" id="SbZ-Tc-fK3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="i0I-td-U9K" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2742" y="-324"/>
         </scene>
         <!--Navigation Controller - Top Places-->
         <scene sceneID="BdM-gY-yyZ">
@@ -198,4 +239,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="dAu-h2-sku"/>
+    </inferredMetricsTieBreakers>
 </document>

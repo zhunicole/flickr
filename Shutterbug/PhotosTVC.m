@@ -7,6 +7,7 @@
 //
 
 #import "PhotosTVC.h"
+#import "PhotoViewController.h"
 
 @interface PhotosTVC ()
 
@@ -138,15 +139,44 @@
 }
 */
 
-/*
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    id detailVC = [self.splitViewController.viewControllers lastObject];
+    if ([detailVC isKindOfClass:[UINavigationController class]]) {
+        detailVC = [((UINavigationController *)detailVC).viewControllers firstObject];
+    }
+    if ([detailVC isKindOfClass:[PhotosTVC class]]) {
+        [self prepareVC:detailVC toDisplayPhoto:self.photos[indexPath.row]];
+    }
+}
+
+
 #pragma mark - Navigation
+
+- (void)prepareVC:(PhotoViewController *)ivc
+  toDisplayPhoto:(NSDictionary *)photo
+{
+    ivc.imageURL = [FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatLarge];
+}
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([sender isKindOfClass:[UITableViewCell class]]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        if (indexPath) {
+            if ([segue.identifier isEqualToString:@"Show Photo"]) {
+                if ([segue.destinationViewController isKindOfClass:[PhotoViewController class]]) {
+                    [self prepareVC:segue.destinationViewController
+                    toDisplayPhoto:self.photos[indexPath.row]];
+                }
+            }
+        }
+    }
 }
-*/
 
 @end

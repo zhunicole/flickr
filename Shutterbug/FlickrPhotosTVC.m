@@ -8,7 +8,7 @@
 
 #import "FlickrPhotosTVC.h"
 #import "FlickrFetcher.h"
-#import "ImageViewController.h"
+#import "RenderPhotosTVC.h"
 
 @interface FlickrPhotosTVC ()
 
@@ -74,7 +74,7 @@
 
 #pragma mark - Navigation
 
-- (void)preparePhotosTVC:(ImageViewController *)ivc
+- (void)preparePhotosTVC:(RenderPhotosTVC *)ivc
                     toDisplayPhotoForPlace:(NSDictionary *)place
 {
 
@@ -89,7 +89,7 @@
     if ([sender isKindOfClass:[UITableViewCell class]]) {
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         if (indexPath) {
-            if ([segue.identifier isEqualToString:@"Display Photo"]) {
+            if ([segue.identifier isEqualToString:@"Display Photo List"]) {
                 if ([segue.destinationViewController isKindOfClass:[PhotosTVC class]]) {
                     [self preparePhotosTVC:segue.destinationViewController
                                       toDisplayPhotoForPlace:self.placesDict[self.countries[indexPath.section]][indexPath.row]];

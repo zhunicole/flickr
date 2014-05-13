@@ -70,10 +70,10 @@
             </objects>
             <point key="canvasLocation" x="1322" y="-2150"/>
         </scene>
-        <!--Image View Controller-->
+        <!--Render PhotosTVC-->
         <scene sceneID="NnX-uw-1jC">
             <objects>
-                <viewController id="DtO-OS-wyk" customClass="ImageViewController" sceneMemberID="viewController">
+                <viewController id="DtO-OS-wyk" customClass="RenderPhotosTVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uDl-CQ-Cms"/>
                         <viewControllerLayoutGuide type="bottom" id="dRy-fZ-wsZ"/>
@@ -104,7 +104,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="WCR-BC-NXd"/>
                     <connections>
-                        <outlet property="scrollView" destination="ErC-7c-B31" id="3hl-6W-FXH"/>
                         <outlet property="spinner" destination="YLm-g1-8rW" id="pz5-oS-dhR"/>
                     </connections>
                 </viewController>
