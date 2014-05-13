@@ -36,11 +36,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    [self.scrollView addSubview:self.imageView];
+    [self setTitle: self.imageTitle];
+    [self.scrollView addSubview: self.imageView];
 
 }
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -81,14 +80,9 @@
 - (void)setScrollView:(UIScrollView *)scrollView
 {
     _scrollView = scrollView;
-
-    // next three lines are necessary for zooming
     _scrollView.minimumZoomScale = 0.2;
     _scrollView.maximumZoomScale = 2.0;
     _scrollView.delegate = self;
-
-    // next line is necessary in case self.image gets set before self.scrollView does
-    // for example, prepareForSegue:sender: is called before outlet-setting phase
     self.scrollView.contentSize = self.image ? self.image.size : CGSizeZero;
 }
 
@@ -144,8 +138,6 @@
 }
 
 #pragma mark - UIScrollViewDelegate
-
-// mandatory zooming method in UIScrollViewDelegate protocol
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {

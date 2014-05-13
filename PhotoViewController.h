@@ -10,5 +10,6 @@
 
 @interface PhotoViewController : UIViewController
 @property (nonatomic, strong) NSURL *imageURL;
+@property (nonatomic, strong) NSString *imageTitle;
 
 @end

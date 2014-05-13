@@ -61,6 +61,7 @@
     return [NSURL URLWithString:[self urlStringForPhoto:photo format:format]];
 }
 
+
 + (NSURL *)URLforInformationAboutPlace:(id)flickrPlaceId
 {
     return [self URLForQuery:[NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=flickr.places.getInfo&place_id=%@", flickrPlaceId]];

@@ -51,18 +51,12 @@
 
 #pragma mark - Table view data source
 
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-//{
-//    return 0;
-//}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
     return [self.photos count];
 }
 
-//TODO make respective cell place for photo generation
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -159,6 +153,7 @@
   toDisplayPhoto:(NSDictionary *)photo
 {
     ivc.imageURL = [FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatLarge];
+    ivc.imageTitle = [self titleOfPhoto:photo];
 }
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
