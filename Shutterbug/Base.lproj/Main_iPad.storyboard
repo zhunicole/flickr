@@ -62,6 +62,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
                             <action selector="fetchPhotos" destination="f3Y-Xr-pYH" eventType="valueChanged" id="Cly-dw-wf3"/>
+                            <action selector="fetchPlaces" destination="f3Y-Xr-pYH" eventType="valueChanged" id="dA1-kT-mUW"/>
                         </connections>
                     </refreshControl>
                 </tableViewController>

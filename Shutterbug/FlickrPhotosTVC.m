@@ -50,7 +50,7 @@
 
     
     cell.textLabel.text = [FlickrFetcher extractTitleFromPlaceInformation:places];
-    cell.detailTextLabel.text = [places valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
+    cell.detailTextLabel.text = [FlickrFetcher extractSubtitleFromPlaceInformation:places];
     
     return cell;
 }
