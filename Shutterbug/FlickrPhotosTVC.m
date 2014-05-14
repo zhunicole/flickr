@@ -59,18 +59,6 @@
     return self.countries[section];
 }
 
-#pragma mark - UITableViewDelegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    id detailVC = [self.splitViewController.viewControllers lastObject];
-    if ([detailVC isKindOfClass:[UINavigationController class]]) {
-        detailVC = [((UINavigationController *)detailVC).viewControllers firstObject];
-    }
-    if ([detailVC isKindOfClass:[PhotosTVC class]]) {
-        [self preparePhotosTVC:detailVC toDisplayPhotoForPlace:self.places[indexPath.row]];
-    }
-}
 
 #pragma mark - Navigation
 

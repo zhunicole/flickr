@@ -207,18 +207,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f4A-to-kOx">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="osF-fC-Svy">
+                                <rect key="frame" x="141" y="222" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f4A-to-kOx">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="osF-fC-Svy">
-                                        <rect key="frame" x="142" y="221" width="37" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </activityIndicatorView>
-                                </subviews>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="osF-fC-Svy" firstAttribute="leading" secondItem="6p9-OV-33N" secondAttribute="leading" constant="141" id="Icx-G5-3lO"/>
+                            <constraint firstAttribute="trailing" secondItem="f4A-to-kOx" secondAttribute="trailing" id="IdJ-qh-5y4"/>
+                            <constraint firstItem="f4A-to-kOx" firstAttribute="leading" secondItem="6p9-OV-33N" secondAttribute="leading" id="PA0-KN-40q"/>
+                            <constraint firstAttribute="bottom" secondItem="f4A-to-kOx" secondAttribute="bottom" id="TzF-RX-an0"/>
+                            <constraint firstItem="f4A-to-kOx" firstAttribute="top" secondItem="6p9-OV-33N" secondAttribute="top" id="a8m-lP-yft"/>
+                            <constraint firstItem="osF-fC-Svy" firstAttribute="centerY" secondItem="f4A-to-kOx" secondAttribute="centerY" id="sbL-OZ-EpE"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="mxB-Rj-CfZ"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>

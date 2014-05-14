@@ -7,6 +7,8 @@
 //
 
 #import "PhotoViewController.h"
+#import "JustPostedFlickrPhotosTVC.h"
+#import "RenderPhotosTVC.h"
 
 @interface PhotoViewController () <UIScrollViewDelegate, UISplitViewControllerDelegate>
 @property (nonatomic, strong) UIImageView *imageView;
@@ -64,10 +66,16 @@
 - (void)setImage:(UIImage *)image
 {
     self.scrollView.zoomScale = 1;
-    self.scrollView.contentSize = image ? image.size : CGSizeZero;
+
     self.imageView.image = image; // does not change the frame of the UIImageView
     [self.imageView sizeToFit];   // update the frame of the UIImageView
 
+    double statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+    double navBarHeight = self.navigationController.navigationBar.frame.size.height;
+
+    self.imageView.frame = CGRectMake(0, statusBarHeight+navBarHeight, image.size.width, image.size.height);
+
+    self.scrollView.contentSize = image ? image.size : CGSizeZero;
     [self.spinner stopAnimating];
     [self autozoomImage];
 
@@ -142,14 +150,23 @@
           withBarButtonItem:(UIBarButtonItem *)barButtonItem
        forPopoverController:(UIPopoverController *)pc
 {
+    UIViewController *hiddenController = aViewController;
+    if ([aViewController isKindOfClass:[UITabBarController class]]) {
+        hiddenController = [(UITabBarController*)hiddenController selectedViewController];
+    }
+    if ([aViewController isKindOfClass:[UINavigationController class]]){
+        hiddenController = [(UINavigationController*)hiddenController topViewController];
+    }
+    if (hiddenController) barButtonItem.title = hiddenController.title;
+    else barButtonItem.title = @"Top Places";
     self.navigationItem.leftBarButtonItem = barButtonItem;
-    barButtonItem.title = aViewController.title;
 }
 
 - (void)splitViewController:(UISplitViewController *)svc
      willShowViewController:(UIViewController *)aViewController
   invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
 {
+
     self.navigationItem.leftBarButtonItem = nil;
 }
 
