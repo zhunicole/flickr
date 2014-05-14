@@ -53,22 +53,22 @@
 		EC51E309191B3281002272BE /* FlickrAPIKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrAPIKey.h; sourceTree = "<group>"; };
 		EC51E30A191B3281002272BE /* FlickrFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrFetcher.h; sourceTree = "<group>"; };
 		EC51E30B191B3281002272BE /* FlickrFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrFetcher.m; sourceTree = "<group>"; };
-		EC5B245419141C5F00B822C3 /* Shutterbug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shutterbug.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC5B245419141C5F00B822C3 /* TopPlacesPhotos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TopPlacesPhotos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC5B245719141C5F00B822C3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EC5B245919141C6000B822C3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		EC5B245B19141C6000B822C3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		EC5B245F19141C6000B822C3 /* Shutterbug-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Shutterbug-Info.plist"; sourceTree = "<group>"; };
+		EC5B245F19141C6000B822C3 /* TopPlacesPhotos-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TopPlacesPhotos-Info.plist"; sourceTree = "<group>"; };
 		EC5B246119141C6000B822C3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EC5B246319141C6000B822C3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		EC5B246519141C6000B822C3 /* Shutterbug-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Shutterbug-Prefix.pch"; sourceTree = "<group>"; };
+		EC5B246519141C6000B822C3 /* TopPlacesPhotos-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TopPlacesPhotos-Prefix.pch"; sourceTree = "<group>"; };
 		EC5B246619141C6000B822C3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		EC5B246719141C6000B822C3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		EC5B246A19141C6000B822C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		EC5B246D19141C6000B822C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		EC5B247219141C6000B822C3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		EC5B247819141C6000B822C3 /* ShutterbugTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShutterbugTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC5B247819141C6000B822C3 /* TopPlacesPhotosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TopPlacesPhotosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC5B247919141C6000B822C3 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		EC5B248119141C6000B822C3 /* ShutterbugTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ShutterbugTests-Info.plist"; sourceTree = "<group>"; };
+		EC5B248119141C6000B822C3 /* TopPlacesPhotosTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TopPlacesPhotosTests-Info.plist"; sourceTree = "<group>"; };
 		EC5B248319141C6000B822C3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EC5B248519141C6000B822C3 /* ShutterbugTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShutterbugTests.m; sourceTree = "<group>"; };
 		EC5B248F19141C9000B822C3 /* FlickrPhotosTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrPhotosTVC.h; sourceTree = "<group>"; };
@@ -116,8 +116,8 @@
 		EC5B245519141C5F00B822C3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EC5B245419141C5F00B822C3 /* Shutterbug.app */,
-				EC5B247819141C6000B822C3 /* ShutterbugTests.xctest */,
+				EC5B245419141C5F00B822C3 /* TopPlacesPhotos.app */,
+				EC5B247819141C6000B822C3 /* TopPlacesPhotosTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -164,10 +164,10 @@
 			children = (
 				EC5B246619141C6000B822C3 /* AppDelegate.h */,
 				EC5B246719141C6000B822C3 /* AppDelegate.m */,
-				EC5B245F19141C6000B822C3 /* Shutterbug-Info.plist */,
+				EC5B245F19141C6000B822C3 /* TopPlacesPhotos-Info.plist */,
 				EC5B246019141C6000B822C3 /* InfoPlist.strings */,
 				EC5B246319141C6000B822C3 /* main.m */,
-				EC5B246519141C6000B822C3 /* Shutterbug-Prefix.pch */,
+				EC5B246519141C6000B822C3 /* TopPlacesPhotos-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -184,7 +184,7 @@
 		EC5B248019141C6000B822C3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				EC5B248119141C6000B822C3 /* ShutterbugTests-Info.plist */,
+				EC5B248119141C6000B822C3 /* TopPlacesPhotosTests-Info.plist */,
 				EC5B248219141C6000B822C3 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -203,9 +203,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		EC5B245319141C5F00B822C3 /* Shutterbug */ = {
+		EC5B245319141C5F00B822C3 /* TopPlacesPhotos */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EC5B248919141C6000B822C3 /* Build configuration list for PBXNativeTarget "Shutterbug" */;
+			buildConfigurationList = EC5B248919141C6000B822C3 /* Build configuration list for PBXNativeTarget "TopPlacesPhotos" */;
 			buildPhases = (
 				EC5B245019141C5F00B822C3 /* Sources */,
 				EC5B245119141C5F00B822C3 /* Frameworks */,
@@ -215,14 +215,14 @@
 			);
 			dependencies = (
 			);
-			name = Shutterbug;
+			name = TopPlacesPhotos;
 			productName = Shutterbug;
-			productReference = EC5B245419141C5F00B822C3 /* Shutterbug.app */;
+			productReference = EC5B245419141C5F00B822C3 /* TopPlacesPhotos.app */;
 			productType = "com.apple.product-type.application";
 		};
-		EC5B247719141C6000B822C3 /* ShutterbugTests */ = {
+		EC5B247719141C6000B822C3 /* TopPlacesPhotosTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EC5B248C19141C6000B822C3 /* Build configuration list for PBXNativeTarget "ShutterbugTests" */;
+			buildConfigurationList = EC5B248C19141C6000B822C3 /* Build configuration list for PBXNativeTarget "TopPlacesPhotosTests" */;
 			buildPhases = (
 				EC5B247419141C6000B822C3 /* Sources */,
 				EC5B247519141C6000B822C3 /* Frameworks */,
@@ -233,9 +233,9 @@
 			dependencies = (
 				EC5B247E19141C6000B822C3 /* PBXTargetDependency */,
 			);
-			name = ShutterbugTests;
+			name = TopPlacesPhotosTests;
 			productName = ShutterbugTests;
-			productReference = EC5B247819141C6000B822C3 /* ShutterbugTests.xctest */;
+			productReference = EC5B247819141C6000B822C3 /* TopPlacesPhotosTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -252,7 +252,7 @@
 					};
 				};
 			};
-			buildConfigurationList = EC5B244F19141C5F00B822C3 /* Build configuration list for PBXProject "Shutterbug" */;
+			buildConfigurationList = EC5B244F19141C5F00B822C3 /* Build configuration list for PBXProject "TopPlacesPhotos" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -265,8 +265,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				EC5B245319141C5F00B822C3 /* Shutterbug */,
-				EC5B247719141C6000B822C3 /* ShutterbugTests */,
+				EC5B245319141C5F00B822C3 /* TopPlacesPhotos */,
+				EC5B247719141C6000B822C3 /* TopPlacesPhotosTests */,
 			);
 		};
 /* End PBXProject section */
@@ -324,7 +324,7 @@
 /* Begin PBXTargetDependency section */
 		EC5B247E19141C6000B822C3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = EC5B245319141C5F00B822C3 /* Shutterbug */;
+			target = EC5B245319141C5F00B822C3 /* TopPlacesPhotos */;
 			targetProxy = EC5B247D19141C6000B822C3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -443,9 +443,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Shutterbug/Shutterbug-Prefix.pch";
-				INFOPLIST_FILE = "Shutterbug/Shutterbug-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "Shutterbug/TopPlacesPhotos-Prefix.pch";
+				INFOPLIST_FILE = "Shutterbug/TopPlacesPhotos-Info.plist";
+				PRODUCT_NAME = TopPlacesPhotos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -457,9 +457,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Shutterbug/Shutterbug-Prefix.pch";
-				INFOPLIST_FILE = "Shutterbug/Shutterbug-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "Shutterbug/TopPlacesPhotos-Prefix.pch";
+				INFOPLIST_FILE = "Shutterbug/TopPlacesPhotos-Info.plist";
+				PRODUCT_NAME = TopPlacesPhotos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -480,8 +480,8 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "ShutterbugTests/ShutterbugTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "ShutterbugTests/TopPlacesPhotosTests-Info.plist";
+				PRODUCT_NAME = TopPlacesPhotosTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -498,8 +498,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Shutterbug/Shutterbug-Prefix.pch";
-				INFOPLIST_FILE = "ShutterbugTests/ShutterbugTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "ShutterbugTests/TopPlacesPhotosTests-Info.plist";
+				PRODUCT_NAME = TopPlacesPhotosTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -508,7 +508,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		EC5B244F19141C5F00B822C3 /* Build configuration list for PBXProject "Shutterbug" */ = {
+		EC5B244F19141C5F00B822C3 /* Build configuration list for PBXProject "TopPlacesPhotos" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EC5B248719141C6000B822C3 /* Debug */,
@@ -517,7 +517,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EC5B248919141C6000B822C3 /* Build configuration list for PBXNativeTarget "Shutterbug" */ = {
+		EC5B248919141C6000B822C3 /* Build configuration list for PBXNativeTarget "TopPlacesPhotos" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EC5B248A19141C6000B822C3 /* Debug */,
@@ -526,7 +526,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EC5B248C19141C6000B822C3 /* Build configuration list for PBXNativeTarget "ShutterbugTests" */ = {
+		EC5B248C19141C6000B822C3 /* Build configuration list for PBXNativeTarget "TopPlacesPhotosTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EC5B248D19141C6000B822C3 /* Debug */,

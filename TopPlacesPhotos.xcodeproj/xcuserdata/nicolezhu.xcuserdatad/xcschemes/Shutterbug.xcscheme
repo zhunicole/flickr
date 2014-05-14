@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EC5B245319141C5F00B822C3"
-               BuildableName = "Shutterbug.app"
-               BlueprintName = "Shutterbug"
-               ReferencedContainer = "container:Shutterbug.xcodeproj">
+               BuildableName = "TopPlacesPhotos.app"
+               BlueprintName = "TopPlacesPhotos"
+               ReferencedContainer = "container:TopPlacesPhotos.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EC5B247719141C6000B822C3"
-               BuildableName = "ShutterbugTests.xctest"
-               BlueprintName = "ShutterbugTests"
-               ReferencedContainer = "container:Shutterbug.xcodeproj">
+               BuildableName = "TopPlacesPhotosTests.xctest"
+               BlueprintName = "TopPlacesPhotosTests"
+               ReferencedContainer = "container:TopPlacesPhotos.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EC5B245319141C5F00B822C3"
-            BuildableName = "Shutterbug.app"
-            BlueprintName = "Shutterbug"
-            ReferencedContainer = "container:Shutterbug.xcodeproj">
+            BuildableName = "TopPlacesPhotos.app"
+            BlueprintName = "TopPlacesPhotos"
+            ReferencedContainer = "container:TopPlacesPhotos.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EC5B245319141C5F00B822C3"
-            BuildableName = "Shutterbug.app"
-            BlueprintName = "Shutterbug"
-            ReferencedContainer = "container:Shutterbug.xcodeproj">
+            BuildableName = "TopPlacesPhotos.app"
+            BlueprintName = "TopPlacesPhotos"
+            ReferencedContainer = "container:TopPlacesPhotos.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -80,9 +80,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EC5B245319141C5F00B822C3"
-            BuildableName = "Shutterbug.app"
-            BlueprintName = "Shutterbug"
-            ReferencedContainer = "container:Shutterbug.xcodeproj">
+            BuildableName = "TopPlacesPhotos.app"
+            BlueprintName = "TopPlacesPhotos"
+            ReferencedContainer = "container:TopPlacesPhotos.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

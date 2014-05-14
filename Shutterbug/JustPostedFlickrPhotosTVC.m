@@ -21,7 +21,6 @@
 - (IBAction)fetchPlaces
 {
     [self.refreshControl beginRefreshing];
-    //what does this do?
     [self.tableView setContentOffset:CGPointMake(0, -self.refreshControl.frame.size.height) animated:YES];
     NSURL *url = [FlickrFetcher URLforRecentGeoreferencedPhotos];
     if (url) {
