@@ -71,9 +71,12 @@
     [self.imageView sizeToFit];   // update the frame of the UIImageView
 
     double statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
-    double navBarHeight = self.navigationController.navigationBar.frame.size.height;
+    double statusBarWidth = [UIApplication sharedApplication].statusBarFrame.size.width;
 
-    self.imageView.frame = CGRectMake(0, statusBarHeight+navBarHeight, image.size.width, image.size.height);
+    double navBarHeight = self.navigationController.navigationBar.frame.size.height;
+    double topClearing = MIN(statusBarHeight, statusBarWidth)+navBarHeight;
+    NSLog(@"topclearing: %f", topClearing);
+    self.imageView.frame = CGRectMake(0, topClearing, image.size.width, image.size.height);
 
     self.scrollView.contentSize = image ? image.size : CGSizeZero;
     [self.spinner stopAnimating];
