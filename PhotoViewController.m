@@ -75,9 +75,7 @@
 
     double navBarHeight = self.navigationController.navigationBar.frame.size.height;
     double topClearing = MIN(statusBarHeight, statusBarWidth)+navBarHeight;
-    NSLog(@"topclearing: %f", topClearing);
     self.imageView.frame = CGRectMake(0, topClearing, image.size.width, image.size.height);
-
     self.scrollView.contentSize = image ? image.size : CGSizeZero;
     [self.spinner stopAnimating];
     [self autozoomImage];

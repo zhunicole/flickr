@@ -230,16 +230,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="1lv-xi-K71">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="1lv-xi-K71">
                                 <rect key="frame" x="365" y="494" width="37" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zd5-wh-uaS">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zd5-wh-uaS">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Zd5-wh-uaS" firstAttribute="centerY" secondItem="1lv-xi-K71" secondAttribute="centerY" id="0wE-H8-vvX"/>
+                            <constraint firstItem="1lv-xi-K71" firstAttribute="leading" secondItem="eNe-Ki-JCu" secondAttribute="leading" constant="365" id="JYf-pb-GkZ"/>
+                            <constraint firstItem="Zd5-wh-uaS" firstAttribute="top" secondItem="eNe-Ki-JCu" secondAttribute="top" id="PnE-nv-tcx"/>
+                            <constraint firstAttribute="trailing" secondItem="Zd5-wh-uaS" secondAttribute="trailing" id="W4R-Fs-kix"/>
+                            <constraint firstAttribute="bottom" secondItem="Zd5-wh-uaS" secondAttribute="bottom" id="WS2-mQ-bM4"/>
+                            <constraint firstItem="Zd5-wh-uaS" firstAttribute="leading" secondItem="eNe-Ki-JCu" secondAttribute="leading" id="yue-wK-2IX"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="uVg-EH-Nya"/>
                     <connections>
