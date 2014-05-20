@@ -6,45 +6,98 @@
 //  Copyright (c) 2014 Stanford University. All rights reserved.
 //
 
+
 #import "JustPostedFlickrPhotosTVC.h"
 #import "FlickrFetcher.h"
+#import "AppDelegate.h"
+#import "Region.h"
+#import "RenderPhotosTVC.h"
 
 @implementation JustPostedFlickrPhotosTVC
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    [self fetchPlaces];
 
+- (void)awakeFromNib
+{
+    [[NSNotificationCenter defaultCenter] addObserverForName:Notification
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note) {
+                                                      self.managedObjectContext = note.userInfo[ContextKey];
+                                                  }];
 }
 
-- (IBAction)fetchPlaces
+- (void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
 {
-    [self.refreshControl beginRefreshing];
-    [self.tableView setContentOffset:CGPointMake(0, -self.refreshControl.frame.size.height) animated:YES];
-    NSURL *url = [FlickrFetcher URLforRecentGeoreferencedPhotos];
-    if (url) {
-        dispatch_queue_t fetchQueue = dispatch_queue_create("flickr info fetch", NULL);
-        dispatch_async(fetchQueue, ^{
-            NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-            NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
-            NSURLSessionDownloadTask *task = [session downloadTaskWithURL:[FlickrFetcher URLforTopPlaces]
-                                                    completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-                                                        NSArray *places;
-                                                        if (!error) {
-                                                            places = [[NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:location]
-                                                                                                      options:0
-                                                                                                        error:&error] valueForKeyPath:FLICKR_RESULTS_PLACES];
-                                                        }
-                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                            self.places = places;
-                                                            [self.refreshControl endRefreshing];
-                                                        });
-                                                    }];
-            [task resume];
-            });
+    _context = managedObjectContext;
+    
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Region"];
+    request.predicate = nil;
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"totalPhotographers"
+                                                              ascending:NO],
+                                [NSSortDescriptor sortDescriptorWithKey:@"name"
+                                                              ascending:NO
+                                                               selector:@selector(localizedStandardCompare:)]];
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                                        managedObjectContext:managedObjectContext
+                                                                          sectionNameKeyPath:nil
+                                                                                   cacheName:nil];
+}
+
+#pragma mark - UITableViewDataSource
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Flickr Photo Cell"];
+    
+    Region *region= [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    cell.textLabel.text = region.name;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", region.totalPhotographers];
+    
+    NSLog(@"here");
+    return cell;
+}
+
+#pragma mark - Navigation
+
+- (void)prepareViewController:(id)vc forSegue:(NSString *)segueIdentifer fromIndexPath:(NSIndexPath *)indexPath
+{
+        Region *region = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        if ([vc isKindOfClass:[RenderPhotosTVC class]]) {
+            RenderPhotosTVC *lfptvc = (RenderPhotosTVC *)vc;
+            lfptvc.region = region;
+        }
+}
+
+// boilerplate
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    NSIndexPath *indexPath = nil;
+    if ([sender isKindOfClass:[UITableViewCell class]]) {
+        indexPath = [self.tableView indexPathForCell:sender];
+    }
+    [self prepareViewController:segue.destinationViewController
+                       forSegue:segue.identifier
+                  fromIndexPath:indexPath];
+}
+
+// boilerplate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    id detailvc = [self.splitViewController.viewControllers lastObject];
+    if ([detailvc isKindOfClass:[UINavigationController class]]) {
+        detailvc = [((UINavigationController *)detailvc).viewControllers firstObject];
+        [self prepareViewController:detailvc
+                           forSegue:nil
+                      fromIndexPath:indexPath];
     }
 }
 
 
+
 @end
+
+
+
+
+//@end

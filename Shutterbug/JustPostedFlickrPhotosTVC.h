@@ -10,4 +10,7 @@
 
 @interface JustPostedFlickrPhotosTVC : FlickrPhotosTVC
 
+@property (nonatomic, strong) NSManagedObjectContext *context;
+
+
 @end

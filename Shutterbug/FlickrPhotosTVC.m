@@ -9,79 +9,89 @@
 #import "FlickrPhotosTVC.h"
 #import "FlickrFetcher.h"
 #import "RenderPhotosTVC.h"
+#import "Photo.h"
+#import "PhotoViewController.h"
 
 @interface FlickrPhotosTVC ()
 
-@property (nonatomic, strong) NSDictionary *placesDict;   //by country
-@property (nonatomic, strong) NSArray *countries;
+//@property (nonatomic, strong) NSDictionary *placesDict;   //by country
+//@property (nonatomic, strong) NSArray *countries;
 
 @end
 
 @implementation FlickrPhotosTVC
 
-- (void)setPlaces:(NSArray *)places
-{
-    _places = places;
-    _places = [FlickrFetcher sortPlaces:places];
-    self.placesDict = [FlickrFetcher sortPlacesByCountries:_places];
-    self.countries = [FlickrFetcher getCountriesFromDict:self.placesDict];
-    [self.tableView reloadData];
-
-}
 
 #pragma mark - UITableViewDataSource
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return self.countries.count;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-   return [self.placesDict[self.countries[section]] count];
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"here");
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Flickr Photo Cell" forIndexPath:indexPath];
 
-    NSString *country = self.countries[indexPath.section];
-    NSDictionary *places = self.placesDict[country][indexPath.row];
-
+    Photo *photo = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    cell.textLabel.text = [FlickrFetcher extractTitleFromPlaceInformation:places];
-    cell.detailTextLabel.text = [FlickrFetcher extractSubtitleFromPlaceInformation:places];
+    NSString *title = photo.title;
+    NSString *subtitle = photo.subtitle;
+    
+    if ([title length]) {
+        //do nothing
+    } else if ([subtitle length]) {
+        title = subtitle;
+        subtitle = @"";
+    } else {
+        title = @"Unknown";
+        subtitle = @"";
+    }
+    cell.textLabel.text = title;
+    cell.detailTextLabel.text = subtitle;
+    //TODO set thumbnail here
     
     return cell;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return self.countries[section];
 }
 
 
 #pragma mark - Navigation
 
-- (void)preparePhotosTVC:(RenderPhotosTVC *)ivc
-                    toDisplayPhotoForPlace:(NSDictionary *)place
-{
 
-    ivc.place = place;
+
+// prepares the given ImageViewController to show the given photo
+// used either when segueing to an ImageViewController
+//   or when our UISplitViewController's Detail view controller is an ImageViewController
+- (void)prepareViewController:(id)vc
+                     forSegue:(NSString *)segueIdentifer
+                fromIndexPath:(NSIndexPath *)indexPath
+{
+    Photo *photo = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    photo.lastViewed = [NSDate date];
+    if ([vc isKindOfClass:[PhotoViewController class]]) {
+        PhotoViewController *ivc = (PhotoViewController *)vc;
+        ivc.imageURL = [NSURL URLWithString:photo.imageURL];
+        ivc.title = photo.title;
+    }
 }
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
+
+// In a story board-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    NSIndexPath *indexPath = nil;
     if ([sender isKindOfClass:[UITableViewCell class]]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-        if (indexPath) {
-            if ([segue.identifier isEqualToString:@"Display Photo List"]) {
-                if ([segue.destinationViewController isKindOfClass:[PhotosTVC class]]) {
-                    [self preparePhotosTVC:segue.destinationViewController
-                                      toDisplayPhotoForPlace:self.placesDict[self.countries[indexPath.section]][indexPath.row]];
-                }
-            }
-        }
+        indexPath = [self.tableView indexPathForCell:sender];
+    }
+    [self prepareViewController:segue.destinationViewController
+                       forSegue:segue.identifier
+                  fromIndexPath:indexPath];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    id detailvc = [self.splitViewController.viewControllers lastObject];
+    if ([detailvc isKindOfClass:[UINavigationController class]]) {
+        detailvc = [((UINavigationController *)detailvc).viewControllers firstObject];
+        [self prepareViewController:detailvc
+                           forSegue:nil
+                      fromIndexPath:indexPath];
     }
 }
 

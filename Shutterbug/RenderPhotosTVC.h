@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "PhotosTVC.h"
 #import "FlickrFetcher.h"
+#import "Region.h"
+#import "FlickrPhotosTVC.h"
 
-@interface RenderPhotosTVC : PhotosTVC
+@interface RenderPhotosTVC : FlickrPhotosTVC
 
-@property (nonatomic, strong) NSDictionary *place;
-
+//@property (nonatomic, strong) NSDictionary *place;
+@property (strong, nonatomic)Region *region;
 
 @end

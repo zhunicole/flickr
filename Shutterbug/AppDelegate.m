@@ -21,7 +21,7 @@
 
 
 @implementation AppDelegate
-#define FETCH_DEBUG NO
+#define FETCH_DEBUG YES
 #define FOREGROUND_FETCH_INTERVAL (FETCH_DEBUG ? 5 : (15*60))
 #define BACKGROUND_FETCH_INTERVAL (FETCH_DEBUG ? 5 : (10))
 #define FETCH @"Fetch from Flickr"
@@ -51,6 +51,7 @@
             if (!success) NSLog(@"couldn't save doc at %@", url);
         }];
     }
+    NSLog(@"completed didfinishlaunch");
     return YES;
 }
 
@@ -83,6 +84,7 @@
     } else {
         completionHandler(UIBackgroundFetchResultNoData);
     }
+    NSLog(@"in foreground, fetch");
 }
 
 
@@ -197,6 +199,7 @@
             if(![downloadTasks count]){
                 void (^completionHandler)() = self.bgSessionCompletionHandler;
                 self.bgSessionCompletionHandler = nil;
+                NSLog(@"backgroundsession done donwloading");
                 if (completionHandler)  completionHandler();
             }
         }];

@@ -10,7 +10,7 @@
 #import "CoreDataTableViewController.h"
 
 @interface FlickrPhotosTVC : CoreDataTableViewController
-@property (strong, nonatomic) NSArray *places; // of Flickr photo NSDictionary
+//@property (strong, nonatomic) NSArray *places; // of Flickr photo NSDictionary
 
 //TODO something missing here
 @end
