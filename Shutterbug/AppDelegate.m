@@ -7,15 +7,33 @@
 //
 
 #import "AppDelegate.h"
+#import "FlickrFetcher.h"
+#import "Photo+Flickr.h"
+
+
+@interface AppDelegate() <NSURLSessionDownloadDelegate>
+@end
+
+
 
 @implementation AppDelegate
+#define FETCH_DEBUG NO
+#define FOREGROUND_FETCH_INTERVAL (FETCH_DEBUG ? 5 : (15*60))
+#define BACKGROUND_FETCH_INTERVAL (FETCH_DEBUG ? 5 : (10))
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    //sets the min fetch interval for when we are in background
+    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+ 
     return YES;
 }
-							
+
+
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -42,5 +60,18 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location{
+    
+}
+
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite{
+    
+}
+
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didResumeAtOffset:(int64_t)fileOffset expectedTotalBytes:(int64_t)expectedTotalBytes{
+    
+}
+
 
 @end
