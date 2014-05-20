@@ -8,8 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+#define Notification @"AvailabilityNotification"
+#define ContextKey @"Context"
+
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+
 
 @end
