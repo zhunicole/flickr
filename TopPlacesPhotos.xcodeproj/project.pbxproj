@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D137CC1C192B085100DECA9A /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D137CC1B192B085100DECA9A /* CoreDataTableViewController.m */; };
 		D163DEBF1921CCD60061D957 /* PhotosTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D163DEBE1921CCD60061D957 /* PhotosTVC.m */; };
 		D163DEC51921F4260061D957 /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D163DEC41921F4260061D957 /* PhotoViewController.m */; };
 		D1AFD4151922B825006C8265 /* RecentTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D1AFD4141922B825006C8265 /* RecentTVC.m */; };
@@ -42,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D137CC1A192B085100DECA9A /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
+		D137CC1B192B085100DECA9A /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
 		D163DEBD1921CCD60061D957 /* PhotosTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotosTVC.h; sourceTree = "<group>"; };
 		D163DEBE1921CCD60061D957 /* PhotosTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotosTVC.m; sourceTree = "<group>"; };
 		D163DEC31921F4260061D957 /* PhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotoViewController.h; path = ../PhotoViewController.h; sourceTree = "<group>"; };
@@ -103,6 +106,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D137CC18192B068E00DECA9A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				EC5B246919141C6000B822C3 /* Main_iPhone.storyboard */,
+				EC5B246C19141C6000B822C3 /* Main_iPad.storyboard */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		D137CC19192B06AD00DECA9A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D137CC1A192B085100DECA9A /* CoreDataTableViewController.h */,
+				D137CC1B192B085100DECA9A /* CoreDataTableViewController.m */,
+				EC5B248F19141C9000B822C3 /* FlickrPhotosTVC.h */,
+				EC5B249019141C9000B822C3 /* FlickrPhotosTVC.m */,
+				EC5B249219141D6000B822C3 /* JustPostedFlickrPhotosTVC.h */,
+				EC5B249319141D6000B822C3 /* JustPostedFlickrPhotosTVC.m */,
+				D163DEBD1921CCD60061D957 /* PhotosTVC.h */,
+				D163DEBE1921CCD60061D957 /* PhotosTVC.m */,
+				EC5B249A1914207D00B822C3 /* RenderPhotosTVC.h */,
+				EC5B249B1914207D00B822C3 /* RenderPhotosTVC.m */,
+				D163DEC31921F4260061D957 /* PhotoViewController.h */,
+				D163DEC41921F4260061D957 /* PhotoViewController.m */,
+				D1AFD4131922B825006C8265 /* RecentTVC.h */,
+				D1AFD4141922B825006C8265 /* RecentTVC.m */,
+				D1AFD4161922B8E2006C8265 /* RecentViewController.h */,
+				D1AFD4171922B8E2006C8265 /* RecentViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
 		EC5B244B19141C5F00B822C3 = {
 			isa = PBXGroup;
 			children = (
@@ -136,22 +171,8 @@
 		EC5B245D19141C6000B822C3 /* Shutterbug */ = {
 			isa = PBXGroup;
 			children = (
-				EC5B246919141C6000B822C3 /* Main_iPhone.storyboard */,
-				EC5B248F19141C9000B822C3 /* FlickrPhotosTVC.h */,
-				EC5B249019141C9000B822C3 /* FlickrPhotosTVC.m */,
-				EC5B249219141D6000B822C3 /* JustPostedFlickrPhotosTVC.h */,
-				EC5B249319141D6000B822C3 /* JustPostedFlickrPhotosTVC.m */,
-				D163DEBD1921CCD60061D957 /* PhotosTVC.h */,
-				D163DEBE1921CCD60061D957 /* PhotosTVC.m */,
-				EC5B249A1914207D00B822C3 /* RenderPhotosTVC.h */,
-				EC5B249B1914207D00B822C3 /* RenderPhotosTVC.m */,
-				D163DEC31921F4260061D957 /* PhotoViewController.h */,
-				D163DEC41921F4260061D957 /* PhotoViewController.m */,
-				D1AFD4131922B825006C8265 /* RecentTVC.h */,
-				D1AFD4141922B825006C8265 /* RecentTVC.m */,
-				D1AFD4161922B8E2006C8265 /* RecentViewController.h */,
-				D1AFD4171922B8E2006C8265 /* RecentViewController.m */,
-				EC5B246C19141C6000B822C3 /* Main_iPad.storyboard */,
+				D137CC18192B068E00DECA9A /* Views */,
+				D137CC19192B06AD00DECA9A /* Controllers */,
 				EC754E6D191983DC00058F7D /* Flickr Fetcher */,
 				EC5B247219141C6000B822C3 /* Images.xcassets */,
 				EC5B245E19141C6000B822C3 /* Supporting Files */,
@@ -300,6 +321,7 @@
 			files = (
 				EC5B249419141D6000B822C3 /* JustPostedFlickrPhotosTVC.m in Sources */,
 				D163DEC51921F4260061D957 /* PhotoViewController.m in Sources */,
+				D137CC1C192B085100DECA9A /* CoreDataTableViewController.m in Sources */,
 				EC5B249119141C9000B822C3 /* FlickrPhotosTVC.m in Sources */,
 				D1AFD4181922B8E2006C8265 /* RecentViewController.m in Sources */,
 				EC5B246819141C6000B822C3 /* AppDelegate.m in Sources */,
