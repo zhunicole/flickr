@@ -9,6 +9,6 @@
 #import "Region.h"
 @interface Region (Create)
 
-+(Region*) regionWithName:(NSString*)name inManageObjectContext:(NSManagedObjectContext*)context;
++(Region*) regionWithName:(NSString*)name withPhotographer:(Photographer*)photographer inManageObjectContext:(NSManagedObjectContext*)context;
 
 @end

@@ -22,7 +22,6 @@
     [[FlickrDatabase sharedDefaultFlickrDatabase] fetchWithCompletionHandler:^(BOOL success) {
         [self.refreshControl endRefreshing];
     }];
-    NSLog(@"refreshing");
 }
 
 
@@ -85,54 +84,54 @@
 
 
 #pragma mark - UITableViewDataSource
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Flickr Photo Cell"];
-    
-    Region *region= [self.fetchedResultsController objectAtIndexPath:indexPath];
-    
-    cell.textLabel.text = region.name;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", region.totalPhotographers];
-    
-    NSLog(@"here");
-    return cell;
-}
-
-#pragma mark - Navigation
-
-- (void)prepareViewController:(id)vc forSegue:(NSString *)segueIdentifer fromIndexPath:(NSIndexPath *)indexPath
-{
-        Region *region = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        if ([vc isKindOfClass:[RenderPhotosTVC class]]) {
-            RenderPhotosTVC *lfptvc = (RenderPhotosTVC *)vc;
-            lfptvc.region = region;
-        }
-}
-
-// boilerplate
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    NSIndexPath *indexPath = nil;
-    if ([sender isKindOfClass:[UITableViewCell class]]) {
-        indexPath = [self.tableView indexPathForCell:sender];
-    }
-    [self prepareViewController:segue.destinationViewController
-                       forSegue:segue.identifier
-                  fromIndexPath:indexPath];
-}
-
-// boilerplate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    id detailvc = [self.splitViewController.viewControllers lastObject];
-    if ([detailvc isKindOfClass:[UINavigationController class]]) {
-        detailvc = [((UINavigationController *)detailvc).viewControllers firstObject];
-        [self prepareViewController:detailvc
-                           forSegue:nil
-                      fromIndexPath:indexPath];
-    }
-}
+//
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Flickr Photo Cell"];
+//    
+//    Region *region= [self.fetchedResultsController objectAtIndexPath:indexPath];
+//    
+//    cell.textLabel.text = region.name;
+//    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", region.totalPhotographers];
+//    
+//    NSLog(@"here");
+//    return cell;
+//}
+//
+//#pragma mark - Navigation
+//
+//- (void)prepareViewController:(id)vc forSegue:(NSString *)segueIdentifer fromIndexPath:(NSIndexPath *)indexPath
+//{
+//        Region *region = [self.fetchedResultsController objectAtIndexPath:indexPath];
+//        if ([vc isKindOfClass:[RenderPhotosTVC class]]) {
+//            RenderPhotosTVC *lfptvc = (RenderPhotosTVC *)vc;
+//            lfptvc.region = region;
+//        }
+//}
+//
+//// boilerplate
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    NSIndexPath *indexPath = nil;
+//    if ([sender isKindOfClass:[UITableViewCell class]]) {
+//        indexPath = [self.tableView indexPathForCell:sender];
+//    }
+//    [self prepareViewController:segue.destinationViewController
+//                       forSegue:segue.identifier
+//                  fromIndexPath:indexPath];
+//}
+//
+//// boilerplate
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    id detailvc = [self.splitViewController.viewControllers lastObject];
+//    if ([detailvc isKindOfClass:[UINavigationController class]]) {
+//        detailvc = [((UINavigationController *)detailvc).viewControllers firstObject];
+//        [self prepareViewController:detailvc
+//                           forSegue:nil
+//                      fromIndexPath:indexPath];
+//    }
+//}
 
 
 

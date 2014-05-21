@@ -7,11 +7,12 @@
 //
 
 #import "Region+Create.h"
+#import "Photographer+Create.h"
 
 @implementation Region (Create)
 
 
-+(Region*) regionWithName:(NSString *)name inManageObjectContext:(NSManagedObjectContext*)context {
++(Region*) regionWithName:(NSString *)name withPhotographer:(Photographer*)photographer inManageObjectContext:(NSManagedObjectContext*)context {
     
     Region *region = nil;
     
@@ -33,7 +34,10 @@
         }
     }
     //TODO set photographers count here instead?
-
+    [region addPhotographersObject:photographer];
+    //update count here
+    region.totalPhotographers = [NSNumber numberWithInt:[region.photographers count]];
+    
     return region;
 
 }

@@ -24,7 +24,6 @@
 #define FETCH_DEBUG YES
 #define FOREGROUND_FETCH_INTERVAL (FETCH_DEBUG ? 5 : (15*60))
 #define BACKGROUND_FETCH_INTERVAL (FETCH_DEBUG ? 5 : (10))
-#define FETCH @"Fetch from Flickr"
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

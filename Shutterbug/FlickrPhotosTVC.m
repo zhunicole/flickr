@@ -7,48 +7,28 @@
 //
 
 #import "FlickrPhotosTVC.h"
-#import "FlickrFetcher.h"
-#import "RenderPhotosTVC.h"
-#import "Photo.h"
-#import "PhotoViewController.h"
-#import "CoreDataTableViewController.h"
-
-
+#import "Region.h"
 
 @implementation FlickrPhotosTVC
 
 
 
-
-#pragma mark - UITableViewDataSource
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"here");
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Flickr Photo Cell"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Region"];
 
-    Photo *photo = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    Region *region = [self.fetchedResultsController objectAtIndexPath:indexPath];
+
     
-    NSString *title = photo.title;
-    NSString *subtitle = photo.subtitle;
-    
-    if ([title length]) {
-        //do nothing
-    } else if ([subtitle length]) {
-        title = subtitle;
-        subtitle = @"";
-    } else {
-        title = @"Unknown";
-        subtitle = @"";
-    }
-    cell.textLabel.text = title;
-    cell.detailTextLabel.text = subtitle;
+    cell.textLabel.text = region.name;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",region.totalPhotographers];
     //TODO set thumbnail here
     
     return cell;
 }
 
-- (void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
+- (void)setContext:(NSManagedObjectContext *)managedObjectContext
 {
     _context = managedObjectContext;
     [self setupFetchedResultsController];

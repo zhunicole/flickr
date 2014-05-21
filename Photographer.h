@@ -2,7 +2,7 @@
 //  Photographer.h
 //  TopPlacesPhotos
 //
-//  Created by Nicole Zhu on 5/19/14.
+//  Created by Nicole Zhu on 5/20/14.
 //  Copyright (c) 2014 Stanford University. All rights reserved.
 //
 

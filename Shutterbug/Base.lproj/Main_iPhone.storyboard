@@ -96,7 +96,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Flickr Photo Cell" textLabel="DF2-Bn-CeB" detailTextLabel="sKD-Bj-VDh" style="IBUITableViewCellStyleSubtitle" id="M1f-Bi-r3i">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Region" textLabel="DF2-Bn-CeB" detailTextLabel="sKD-Bj-VDh" style="IBUITableViewCellStyleSubtitle" id="M1f-Bi-r3i">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="M1f-Bi-r3i" id="ALQ-ir-u1v">
@@ -263,6 +263,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="QHh-Mi-kXv"/>
+        <segue reference="dAu-h2-sku"/>
     </inferredMetricsTieBreakers>
 </document>

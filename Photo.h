@@ -2,14 +2,14 @@
 //  Photo.h
 //  TopPlacesPhotos
 //
-//  Created by Nicole Zhu on 5/19/14.
+//  Created by Nicole Zhu on 5/20/14.
 //  Copyright (c) 2014 Stanford University. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Photographer, Place, Region;
+@class Photographer, Region;
 
 @interface Photo : NSManagedObject
 
@@ -18,8 +18,7 @@
 @property (nonatomic, retain) NSString * subtitle;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * unique;
-@property (nonatomic, retain) Photographer *whoTook;
 @property (nonatomic, retain) Region *whatRegion;
-@property (nonatomic, retain) Place *whatPlace;
+@property (nonatomic, retain) Photographer *whoTook;
 
 @end
