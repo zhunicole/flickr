@@ -10,7 +10,6 @@
 
 @interface TopRegionsCDTVC : FlickrPhotosTVC
 
-//@property (nonatomic, strong) NSManagedObjectContext *context;
 
 
 @end

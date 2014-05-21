@@ -8,6 +8,7 @@
 
 #import "FlickrPhotosTVC.h"
 #import "Region.h"
+#import "RenderPhotosTVC.h"
 
 @implementation FlickrPhotosTVC
 
@@ -62,46 +63,31 @@
 #pragma mark - Navigation
 
 
+- (void)prepareRenderPhotosTVC:(RenderPhotosTVC *)ivc
+  toDisplayPhotosForRegion:(Region *)region
+{
+    ivc.region = region;
+    ivc.context = self.context;
+}
 
-//// prepares the given ImageViewController to show the given photo
-//// used either when segueing to an ImageViewController
-////   or when our UISplitViewController's Detail view controller is an ImageViewController
-//- (void)prepareViewController:(id)vc
-//                     forSegue:(NSString *)segueIdentifer
-//                fromIndexPath:(NSIndexPath *)indexPath
-//{
-//    Photo *photo = [self.fetchedResultsController objectAtIndexPath:indexPath];
-//    photo.lastViewed = [NSDate date];
-//    if ([vc isKindOfClass:[PhotoViewController class]]) {
-//        PhotoViewController *ivc = (PhotoViewController *)vc;
-//        ivc.imageURL = [NSURL URLWithString:photo.imageURL];
-//        ivc.title = photo.title;
-//    }
-//}
-//
-//
-//// In a story board-based application, you will often want to do a little preparation before navigation
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-//{
-//    NSIndexPath *indexPath = nil;
-//    if ([sender isKindOfClass:[UITableViewCell class]]) {
-//        indexPath = [self.tableView indexPathForCell:sender];
-//    }
-//    [self prepareViewController:segue.destinationViewController
-//                       forSegue:segue.identifier
-//                  fromIndexPath:indexPath];
-//}
-//
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    id detailvc = [self.splitViewController.viewControllers lastObject];
-//    if ([detailvc isKindOfClass:[UINavigationController class]]) {
-//        detailvc = [((UINavigationController *)detailvc).viewControllers firstObject];
-//        [self prepareViewController:detailvc
-//                           forSegue:nil
-//                      fromIndexPath:indexPath];
-//    }
-//}
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([sender isKindOfClass:[UITableViewCell class]]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        if (indexPath) {
+            if ([segue.identifier isEqualToString:@"Display Photo List"]) {
+                if ([segue.destinationViewController isKindOfClass:[RenderPhotosTVC class]]) {
+                    Region *region = [self.fetchedResultsController objectAtIndexPath:indexPath]; //impt function
+                    [self prepareRenderPhotosTVC:segue.destinationViewController toDisplayPhotosForRegion:region];
+
+                }
+            }
+        }
+    }
+}
+
 
 
 @end

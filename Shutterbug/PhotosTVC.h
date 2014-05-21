@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "flickrFetcher.h"
+#import "CoreDataTableViewController.h"
 
-@interface PhotosTVC : UITableViewController
 
-@property (strong, nonatomic) NSArray *photos;
+@interface PhotosTVC : CoreDataTableViewController
+
+//@property (strong, nonatomic) NSArray *photos;
 @end

@@ -12,9 +12,11 @@
 #import "Region.h"
 #import "FlickrPhotosTVC.h"
 
-@interface RenderPhotosTVC : FlickrPhotosTVC
+@interface RenderPhotosTVC : PhotosTVC
 
-//@property (nonatomic, strong) NSDictionary *place;
-@property (strong, nonatomic)Region *region;
+
+@property (strong, nonatomic) Region *region;
+@property (nonatomic, strong) NSManagedObjectContext *context;
+
 
 @end

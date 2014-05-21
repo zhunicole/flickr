@@ -18,7 +18,7 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.photos = [RecentViewController photoArray] ;
+//    self.photos = [RecentViewController photoArray] ;
 }
 
 
