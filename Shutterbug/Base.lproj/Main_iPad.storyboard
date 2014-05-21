@@ -37,10 +37,10 @@
             </objects>
             <point key="canvasLocation" x="225" y="-1562"/>
         </scene>
-        <!--RecentTVC - Recently Viewed-->
+        <!--Recent View Controller - Recently Viewed-->
         <scene sceneID="z14-5m-heO">
             <objects>
-                <tableViewController id="3fa-VN-B0H" customClass="RecentTVC" sceneMemberID="viewController">
+                <tableViewController id="3fa-VN-B0H" customClass="RecentViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="z4o-Lu-eqK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -98,7 +98,7 @@
             </objects>
             <point key="canvasLocation" x="983" y="-745"/>
         </scene>
-        <!--Top RegionsCDTVC - Top Places-->
+        <!--Top RegionsCDTVC - Top Regions-->
         <scene sceneID="Kt0-Kj-xXK">
             <objects>
                 <tableViewController id="yhr-hu-vFg" customClass="TopRegionsCDTVC" sceneMemberID="viewController">
@@ -107,7 +107,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Flickr Photo Cell" textLabel="2OF-PD-u7v" detailTextLabel="PtL-Ma-SYX" style="IBUITableViewCellStyleSubtitle" id="MWL-No-joZ">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Region" textLabel="2OF-PD-u7v" detailTextLabel="PtL-Ma-SYX" style="IBUITableViewCellStyleSubtitle" id="MWL-No-joZ">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MWL-No-joZ" id="3v0-GB-WuF">
@@ -140,7 +140,7 @@
                             <outlet property="delegate" destination="yhr-hu-vFg" id="egK-PU-f2x"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Top Places" id="h9e-Qv-fpm"/>
+                    <navigationItem key="navigationItem" title="Top Regions" id="h9e-Qv-fpm"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="J4U-jO-cAg">
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
@@ -193,12 +193,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="GG5-Cr-D6T"/>
-                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="y7d-vq-FVO">
-                        <autoresizingMask key="autoresizingMask"/>
-                        <connections>
-                            <action selector="fetchPhotos" destination="z2U-sL-TlQ" eventType="valueChanged" id="S4O-gk-Ksa"/>
-                        </connections>
-                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WVs-Bt-fYJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -23,34 +23,6 @@
 
 
 
-- (NSString *) titleOfPhoto:(NSDictionary *)photo {
-    NSString *title;
-    title = [photo valueForKeyPath:FLICKR_PHOTO_TITLE];
-    if ([title length]) {
-        return title;
-    } else if ([[photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION] length]){
-        return [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
-    } else {
-        return @"Unknown";
-    }
-}
-
--(NSString *) subtitleOfPhoto:(NSDictionary*)photo {
-    NSString *descrip = [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
-
-    if ([descrip length]){
-        //if is already used as title then ignore
-        if ([descrip isEqualToString:[self titleOfPhoto:photo]]) {
-            return @"";
-        } else {
-            return descrip;
-        }
-    } else {
-        return @"";
-    }
-}
-
-
 
 #pragma mark - UITableViewDelegate
 

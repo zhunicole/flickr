@@ -87,7 +87,7 @@
             </objects>
             <point key="canvasLocation" x="1311" y="79"/>
         </scene>
-        <!--Top RegionsCDTVC - Top Places-->
+        <!--Top RegionsCDTVC - Top Regions-->
         <scene sceneID="PC8-he-G7l">
             <objects>
                 <tableViewController id="Fla-m2-5KM" customClass="TopRegionsCDTVC" sceneMemberID="viewController">
@@ -129,7 +129,7 @@
                             <outlet property="delegate" destination="Fla-m2-5KM" id="vCP-lz-XRi"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Top Places" id="5UG-wh-NCK"/>
+                    <navigationItem key="navigationItem" title="Top Regions" id="5UG-wh-NCK"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="v4d-ZS-C6x">
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>

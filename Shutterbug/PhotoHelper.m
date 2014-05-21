@@ -21,9 +21,7 @@
 }
 
 + (void)justViewed:(Photo*)photo {
-    NSLog(@"justviewed");
     dispatch_queue_t fetchQueue = dispatch_queue_create("update Photo's lastViewed", NULL);
-    
     dispatch_async(fetchQueue, ^{
         FlickrDatabase *flickrdb = [FlickrDatabase sharedDefaultFlickrDatabase];
         NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];

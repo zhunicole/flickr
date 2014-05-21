@@ -34,6 +34,7 @@
     [self setupFetchedResultsController];
 }
 
+#define MAX_FETCH 50
 - (void)setupFetchedResultsController
 {
     if(self.context) {
@@ -44,6 +45,7 @@
                                     [NSSortDescriptor sortDescriptorWithKey:@"name"
                                                                   ascending:NO
                                                                    selector:@selector(localizedStandardCompare:)]];
+        request.fetchLimit = MAX_FETCH;
         self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                             managedObjectContext:self.context
                                                                               sectionNameKeyPath:nil

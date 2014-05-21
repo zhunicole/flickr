@@ -33,9 +33,7 @@
             region = [matches lastObject];
         }
     }
-    //TODO set photographers count here instead?
     [region addPhotographersObject:photographer];
-    //update count here
     region.totalPhotographers = [NSNumber numberWithInt:[region.photographers count]];
     
     return region;
