@@ -18,6 +18,7 @@
 @dynamic subtitle;
 @dynamic title;
 @dynamic unique;
+@dynamic thumbnailData;
 @dynamic whatRegion;
 @dynamic whoTook;
 
