@@ -29,7 +29,6 @@
     if (error || !matches || ([matches count] > 1)) {
         // handle error
     } else if (![matches count]) {
-//        NSLog(@"hi");
         
         photo = [NSEntityDescription insertNewObjectForEntityForName:@"Photo"
                                               inManagedObjectContext:context];
@@ -43,8 +42,6 @@
         photo.whoTook = [Photographer photographerWithName:photographerName
                                     inManagedObjectContext:context];
         NSString *placeID = [photoDictionary valueForKey:FLICKR_PHOTO_PLACE_ID];
-        NSLog(@"%@", photoDictionary);
-
         
         dispatch_queue_t fetch = dispatch_queue_create("Flickr fetch", NULL);
         dispatch_async(fetch, ^{

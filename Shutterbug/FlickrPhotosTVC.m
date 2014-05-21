@@ -15,7 +15,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"here");
+
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Region"];
 
     Region *region = [self.fetchedResultsController objectAtIndexPath:indexPath];
