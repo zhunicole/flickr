@@ -10,6 +10,7 @@
 #import "PhotoViewController.h"
 #import "RecentViewController.h"
 #import "Photo.h"
+#import "PhotoHelper.h"
 
 @interface PhotosTVC ()
 
@@ -73,9 +74,9 @@
    toDisplayPhoto:(Photo *)photo
 {
     ivc.imageURL = (NSURL*)photo.imageURL;
-    NSLog(@"%@",ivc.imageURL);
     ivc.imageTitle = photo.title;
-    //TODO [RecentViewController addRecentPhoto:photo];
+    
+    [PhotoHelper justViewed:photo];
 }
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation

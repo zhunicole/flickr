@@ -7,7 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PHoto.h"
 
 @interface PhotoHelper : NSObject
 
++ (Photo *)getPhotoWithUniqueID:(NSString *)unique withContext:(NSManagedObjectContext *)context;
+
++ (void)justViewed:(Photo*)photo;
++ (void)fetchThumbnailData:(Photo*)photo forCell:(UITableViewCell*)cell withIndexPath:(NSIndexPath *)indexPath withContext:(NSManagedObjectContext*)mainContext;
 @end

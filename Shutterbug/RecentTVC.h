@@ -6,9 +6,11 @@
 //  Copyright (c) 2014 Stanford University. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "PhotosTVC.h"
 
 @interface RecentTVC : PhotosTVC
+
+@property (nonatomic, strong) NSManagedObjectContext *context;
+
 
 @end

@@ -24,7 +24,6 @@
     
     cell.textLabel.text = region.name;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",region.totalPhotographers];
-    //TODO set thumbnail here
     
     return cell;
 }
@@ -53,9 +52,6 @@
     } else {
         self.fetchedResultsController = nil;
     }
-    
-    NSLog(@"in flickrphotosTVC");
-
 }
 
 

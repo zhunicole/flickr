@@ -6,11 +6,9 @@
 //  Copyright (c) 2014 Stanford University. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "RecentTVC.h"
 
-@interface RecentViewController : UIViewController
+@interface RecentViewController : RecentTVC
 
-+ (NSArray *) photoArray;
-+ (void) addRecentPhoto:(NSDictionary*) photo;
 
 @end

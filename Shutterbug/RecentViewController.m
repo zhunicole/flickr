@@ -8,6 +8,7 @@
 
 #import "RecentViewController.h"
 #import "FlickrFetcher.h"
+#import "FlickrDatabase.h"
 
 @interface RecentViewController ()
 
@@ -15,48 +16,23 @@
 
 @implementation RecentViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    FlickrDatabase *flickrdb = [FlickrDatabase sharedDefaultFlickrDatabase];
+    if (flickrdb.managedObjectContext) {
+        self.context = flickrdb.managedObjectContext;
+    } else {
+        id observer = [[NSNotificationCenter defaultCenter] addObserverForName:FlickrDatabaseAvailable
+                                                                        object:flickrdb
+                                                                         queue:[NSOperationQueue mainQueue]
+                                                                    usingBlock:^(NSNotification *note) {
+                                                                        self.context = flickrdb.managedObjectContext;
+                                                                        [[NSNotificationCenter defaultCenter] removeObserver:observer];
+                                                                    }];
     }
-    return self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
-
-static const int MAX_RECENT_PHOTOS = 20;
-
-+ (NSArray *) photoArray {
-    NSArray *photoArray= [[NSUserDefaults standardUserDefaults] objectForKey: @"Recent_Photos_Key"];
-    return photoArray;
-}
-
-+ (void) addRecentPhoto:(NSDictionary*) photo {
-    NSMutableArray *photoArray = [[self photoArray] mutableCopy];
-    
-    if (!photoArray) photoArray  = [[NSMutableArray alloc] init];
-    
-    //check if photo is in photos Array
-    NSUInteger key = [photoArray indexOfObjectPassingTest:^BOOL(id object, NSUInteger i, BOOL *b) {
-        return [[FlickrFetcher photoID:photo] isEqualToString:[FlickrFetcher photoID:object]];
-    }];
-    if (key != NSNotFound) [photoArray removeObjectAtIndex:key];
-    [photoArray insertObject:photo atIndex:0];
-    if ([photoArray count] > MAX_RECENT_PHOTOS) {
-        [photoArray removeLastObject];
-    }
-    [[NSUserDefaults standardUserDefaults] setObject:photoArray forKey:@"Recent_Photos_Key"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-}
 
 @end
