@@ -2,7 +2,7 @@
 //  Photo.m
 //  TopPlacesPhotos
 //
-//  Created by Nicole Zhu on 5/20/14.
+//  Created by Nicole Zhu on 5/21/14.
 //  Copyright (c) 2014 Stanford University. All rights reserved.
 //
 
@@ -19,6 +19,7 @@
 @dynamic title;
 @dynamic unique;
 @dynamic thumbnailData;
+@dynamic thumbnailURL;
 @dynamic whatRegion;
 @dynamic whoTook;
 

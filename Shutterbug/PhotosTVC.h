@@ -14,4 +14,5 @@
 @interface PhotosTVC : CoreDataTableViewController
 
 //@property (strong, nonatomic) NSArray *photos;
+
 @end

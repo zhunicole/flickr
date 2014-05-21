@@ -20,21 +20,6 @@
 
 #pragma mark - Table view data source
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Photo Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    Photo *photo = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = photo.title;
-    cell.detailTextLabel.text = photo.subtitle;
-    //call func that dispatch async download of thumbnail data (photo cell and context)
-        //set photo.thumbnnail in [context] call main thread
-        //or download thumbnail data, set photothumbnial data to that. cell.imageview.image = uiimage using data
-    
-    return cell;
-    
-}
-
 
 
 - (NSString *) titleOfPhoto:(NSDictionary *)photo {

@@ -94,7 +94,7 @@
     double maxWidth = scrollViewWidth / imageViewWidth;
     double maxHeight = (scrollViewHeight - navBarHeight - tabBarHeight - MIN(statusBarHeight, statusBarWidth) )/ imageViewHeight;
     
-    if (maxWidth < maxHeight) {
+    if (maxWidth > maxHeight) {
         self.scrollView.zoomScale = maxWidth;
     } else {
         self.scrollView.zoomScale = maxHeight;
@@ -115,20 +115,15 @@
 {
     _imageURL = [NSURL URLWithString:filePath];
     self.image = nil;
-//    self.animating = YES;
     if (self.imageURL) {
         NSURLRequest *request = [NSURLRequest requestWithURL:self.imageURL];
-        
-        // another configuration option is backgroundSessionConfiguration (multitasking API required though)
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
         NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
         
         NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request
                                                         completionHandler:^(NSURL *localfile, NSURLResponse *response, NSError *error) {
-                                                            // this handler is not executing on the main queue, so we can't do UI directly here
                                                             if (!error) {
                                                                 if ([request.URL isEqual:self.imageURL]) {
-                                                                    // UIImage is an exception to the "can't do UI here"
                                                                     UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:localfile]];
                                                                     dispatch_async(dispatch_get_main_queue(), ^{
                                                                         self.image = image;
@@ -136,7 +131,7 @@
                                                                 }
                                                             }
                                                         }];
-        [task resume]; // don't forget that all NSURLSession tasks start out suspended!
+        [task resume];
     }
 }
 
