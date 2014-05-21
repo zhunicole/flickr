@@ -111,29 +111,33 @@
 }
 
 
-- (void)setImageURL:(NSURL *)imageURL
+- (void)setImageURL:(NSString *)filePath
 {
-    _imageURL = imageURL;
-
+    _imageURL = [NSURL URLWithString:filePath];
     self.image = nil;
-    if (!self.imageURL) return;
-    
-    [self.spinner startAnimating];
-    
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
-    NSURLSessionDownloadTask *task = [session downloadTaskWithURL:self.imageURL
-                                                completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-                                                    if (!error) {
-                                                        if ([response.URL isEqual:self.imageURL]) {
-                                                            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:location]];
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                self.image = image;
-                                                            });
-                                                        }
-                                                    }
-                                                }];
-    [task resume];
-    
+//    self.animating = YES;
+    if (self.imageURL) {
+        NSURLRequest *request = [NSURLRequest requestWithURL:self.imageURL];
+        
+        // another configuration option is backgroundSessionConfiguration (multitasking API required though)
+        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+        NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+        
+        NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request
+                                                        completionHandler:^(NSURL *localfile, NSURLResponse *response, NSError *error) {
+                                                            // this handler is not executing on the main queue, so we can't do UI directly here
+                                                            if (!error) {
+                                                                if ([request.URL isEqual:self.imageURL]) {
+                                                                    // UIImage is an exception to the "can't do UI here"
+                                                                    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:localfile]];
+                                                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                                                        self.image = image;
+                                                                    });
+                                                                }
+                                                            }
+                                                        }];
+        [task resume]; // don't forget that all NSURLSession tasks start out suspended!
+    }
 }
 
 #pragma mark - UISplitViewControllerDelegate
