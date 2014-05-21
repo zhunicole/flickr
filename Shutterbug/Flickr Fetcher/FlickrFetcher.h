@@ -34,6 +34,7 @@ typedef enum {
 	FlickrPhotoFormatOriginal = 64  // high resolution
 } FlickrPhotoFormat;
 
+
 @interface FlickrFetcher : NSObject
 
 + (NSURL *)URLforTopPlaces;

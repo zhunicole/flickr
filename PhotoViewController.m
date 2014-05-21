@@ -7,7 +7,7 @@
 //
 
 #import "PhotoViewController.h"
-#import "JustPostedFlickrPhotosTVC.h"
+#import "TopRegionsCDTVC.h"
 #import "RenderPhotosTVC.h"
 
 @interface PhotoViewController () <UIScrollViewDelegate, UISplitViewControllerDelegate>

@@ -87,10 +87,10 @@
             </objects>
             <point key="canvasLocation" x="1311" y="79"/>
         </scene>
-        <!--Just Posted Flickr PhotosTVC - Top Places-->
+        <!--Top RegionsCDTVC - Top Places-->
         <scene sceneID="PC8-he-G7l">
             <objects>
-                <tableViewController id="Fla-m2-5KM" customClass="JustPostedFlickrPhotosTVC" sceneMemberID="viewController">
+                <tableViewController id="Fla-m2-5KM" customClass="TopRegionsCDTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="SyX-qP-cbK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -132,6 +132,9 @@
                     <navigationItem key="navigationItem" title="Top Places" id="5UG-wh-NCK"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="v4d-ZS-C6x">
                         <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <action selector="refresh" destination="Fla-m2-5KM" eventType="valueChanged" id="9W6-HK-vhY"/>
+                        </connections>
                     </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t8k-O8-sk2" userLabel="First Responder" sceneMemberID="firstResponder"/>

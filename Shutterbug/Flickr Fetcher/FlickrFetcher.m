@@ -5,6 +5,7 @@
 //  Copyright 2013 Stanford University. All rights reserved.
 //
 
+
 #import "FlickrFetcher.h"
 #import "FlickrAPIKey.h"
 
@@ -30,7 +31,16 @@
 
 + (NSURL *)URLforRecentGeoreferencedPhotos;
 {
-    return [self URLForQuery:[NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=flickr.photos.search&license=1,2,4,7&has_geo=1&extras=original_format,description,geo,date_upload,owner_name"]];
+#ifdef FLICKR_DEBUG
+    if (FLICKR_DEBUG) {
+        int debugCount = arc4random()%97;
+        return [NSURL URLWithString:[NSString stringWithFormat:@"http://www.stanford.edu/class/cs193p/FlickrDebug/FlickrDebug%d", debugCount]];
+    } else {
+#endif
+        return [self URLForQuery:[NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=flickr.photos.search&license=1,2,4,7&has_geo=1&extras=original_format,description,geo,date_upload,owner_name"]];
+#ifdef FLICKR_DEBUG
+    }
+#endif
 }
 
 + (NSString *)urlStringForPhoto:(NSDictionary *)photo format:(FlickrPhotoFormat)format
@@ -53,14 +63,13 @@
 		case FlickrPhotoFormatOriginal:  formatString = @"o"; break;
 	}
     
-	return [NSString stringWithFormat:@"http://farm%@.static.flickr.com/%@/%@_%@_%@.%@", farm, server, photo_id, secret, formatString, fileType];
+	return [NSString stringWithFormat:@"https://farm%@.static.flickr.com/%@/%@_%@_%@.%@", farm, server, photo_id, secret, formatString, fileType];
 }
 
 + (NSURL *)URLforPhoto:(NSDictionary *)photo format:(FlickrPhotoFormat)format;
 {
     return [NSURL URLWithString:[self urlStringForPhoto:photo format:format]];
 }
-
 
 + (NSURL *)URLforInformationAboutPlace:(id)flickrPlaceId
 {
@@ -100,11 +109,13 @@
 
 + (NSString *)extractRegionNameFromPlaceInformation:(NSDictionary *)place
 {
-    return [place valueForKeyPath:FLICKR_PLACE_NAME];
+    return [place valueForKeyPath:FLICKR_PLACE_REGION_NAME];
 }
+
 
 + (NSString *)extractCountryNameFromPlaceInformation:(NSDictionary*)place
 {
+    //TODO this might be wrong
     return [[[place valueForKeyPath:FLICKR_PLACE_NAME] componentsSeparatedByString:@", "] lastObject];
 }
 

@@ -32,7 +32,8 @@
             region = [matches lastObject];
         }
     }
-    
+    //TODO set photographers count here instead?
+
     return region;
 
 }

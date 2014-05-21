@@ -11,6 +11,7 @@
 
 @interface FlickrPhotosTVC : CoreDataTableViewController
 //@property (strong, nonatomic) NSArray *places; // of Flickr photo NSDictionary
+@property (nonatomic, strong) NSManagedObjectContext *context;
 
 //TODO something missing here
 @end

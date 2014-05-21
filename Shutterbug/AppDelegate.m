@@ -9,14 +9,14 @@
 #import "AppDelegate.h"
 #import "FlickrFetcher.h"
 #import "Photo+Flickr.h"
+#import "FlickrDatabase.h"
 
-
-@interface AppDelegate() <NSURLSessionDownloadDelegate>
-@property (strong, nonatomic) NSManagedObjectContext *context;
-@property (strong, nonatomic) NSURLSession *session;
-@property (copy, nonatomic) void (^bgSessionCompletionHandler)();
-@property (strong, nonatomic) NSTimer *timer;
-@end
+//@interface AppDelegate //() <NSURLSessionDownloadDelegate>
+//@property (strong, nonatomic) NSManagedObjectContext *context;
+//@property (strong, nonatomic) NSURLSession *session;
+//@property (copy, nonatomic) void (^bgSessionCompletionHandler)();
+//@property (strong, nonatomic) NSTimer *timer;
+//@end
 
 
 
@@ -29,69 +29,95 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //sets the min fetch interval for when we are in background
-    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
-    
-    //gettign out managed object context from a UIManagedDoc
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSURL *docLocation = [[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask]firstObject];
-    NSString *docName = @"NicolesDoc";
-    NSURL *url = [docLocation URLByAppendingPathComponent:docName];
-    UIManagedDocument *doc = [[UIManagedDocument alloc] initWithFileURL:url];
-    
-    BOOL fileExists = [fileManager fileExistsAtPath:[url path]];
-    if (fileExists) {
-        [doc openWithCompletionHandler:^(BOOL success) {
-            if(success)[self docIsReadyAndCreateObject:doc];
-            if(!success) NSLog(@"couldn't open doc at %@", url);
-        }];
-    } else { //create it
-        [doc saveToURL:url forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
-            if (success) [self docIsReadyAndCreateObject:doc];
-            if (!success) NSLog(@"couldn't save doc at %@", url);
-        }];
-    }
-    NSLog(@"completed didfinishlaunch");
+    // Override point for customization after application launch.
+    [NSTimer scheduledTimerWithTimeInterval:FOREGROUND_FETCH_INTERVAL
+                                     target:self
+                                   selector:@selector(processFetchTimer:)
+                                   userInfo:nil
+                                    repeats:YES];
+    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     return YES;
 }
 
-- (void) docIsReadyAndCreateObject: (UIManagedDocument*)doc {
-    if (doc.documentState == UIDocumentStateNormal) {
-        self.context = doc.managedObjectContext;
-        [self fetch];
-    } else {
-        NSLog(@"not ready to go");
-    }
+- (void)processFetchTimer:(NSTimer *)timer
+{
+    [[FlickrDatabase sharedDefaultFlickrDatabase] fetch];
+}
+
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+    [[FlickrDatabase sharedDefaultFlickrDatabase] fetchWithCompletionHandler:^(BOOL success) {
+        completionHandler(success ? UIBackgroundFetchResultNewData : UIBackgroundFetchResultNoData);
+    }];
 }
 
 
-/*Foreground call
- *non discretionary, non-background-session fetch*/
-- (void) application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    if (self.context) {
-        NSURLSessionConfiguration *config = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-        config.allowsCellularAccess = NO;
-        config.timeoutIntervalForRequest = BACKGROUND_FETCH_INTERVAL;
-        NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
-        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[FlickrFetcher URLforRecentGeoreferencedPhotos]];
-        NSURLSessionDownloadTask *task;
-        task = [session downloadTaskWithRequest:request completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-            [self loadPhotosFromLocalURL:location intoContext:self.context andThenExecuteBlock:^{
-                completionHandler(UIBackgroundFetchResultNewData);
-            }];
-        }];
-        [task resume];
-    } else {
-        completionHandler(UIBackgroundFetchResultNoData);
-    }
-    NSLog(@"in foreground, fetch");
-}
 
-
-/* Called when we are in background and a background request returns*/
-- (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)())completionHandler{
-    self.bgSessionCompletionHandler = completionHandler; //saves completionHandler in a callback block
-}
+//- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+//{
+//    //sets the min fetch interval for when we are in background
+//    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+//    
+//    //gettign out managed object context from a UIManagedDoc
+//    NSFileManager *fileManager = [NSFileManager defaultManager];
+//    NSURL *docLocation = [[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask]firstObject];
+//    NSString *docName = @"NicolesDoc";
+//    NSURL *url = [docLocation URLByAppendingPathComponent:docName];
+//    UIManagedDocument *doc = [[UIManagedDocument alloc] initWithFileURL:url];
+//    
+//    BOOL fileExists = [fileManager fileExistsAtPath:[url path]];
+//    if (fileExists) {
+//        [doc openWithCompletionHandler:^(BOOL success) {
+//            if(success)[self docIsReadyAndCreateObject:doc];
+//            if(!success) NSLog(@"couldn't open doc at %@", url);
+//        }];
+//    } else { //create it
+//        [doc saveToURL:url forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
+//            if (success) [self docIsReadyAndCreateObject:doc];
+//            if (!success) NSLog(@"couldn't save doc at %@", url);
+//        }];
+//    }
+//    NSLog(@"completed didfinishlaunch");
+//    return YES;
+//}
+//
+//- (void) docIsReadyAndCreateObject: (UIManagedDocument*)doc {
+//    if (doc.documentState == UIDocumentStateNormal) {
+//        self.context = doc.managedObjectContext;
+//        [self fetch];
+//    } else {
+//        NSLog(@"not ready to go");
+//    }
+//}
+//
+//
+///*Foreground call
+// *non discretionary, non-background-session fetch*/
+//- (void) application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+//    if (self.context) {
+//        NSURLSessionConfiguration *config = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+//        config.allowsCellularAccess = NO;
+//        config.timeoutIntervalForRequest = BACKGROUND_FETCH_INTERVAL;
+//        NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
+//        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[FlickrFetcher URLforRecentGeoreferencedPhotos]];
+//        NSURLSessionDownloadTask *task;
+//        task = [session downloadTaskWithRequest:request completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+//            [self loadPhotosFromLocalURL:location intoContext:self.context andThenExecuteBlock:^{
+//                completionHandler(UIBackgroundFetchResultNewData);
+//            }];
+//        }];
+//        [task resume];
+//    } else {
+//        completionHandler(UIBackgroundFetchResultNoData);
+//    }
+//    NSLog(@"in foreground, fetch");
+//}
+//
+//
+///* Called when we are in background and a background request returns*/
+//- (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)())completionHandler{
+//    self.bgSessionCompletionHandler = completionHandler; //saves completionHandler in a callback block
+//}
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -121,109 +147,109 @@
 }
 
 
-- (void) setContext:(NSManagedObjectContext*)photoContext {
-    _context = photoContext;
-    [self.timer invalidate];
-    self.timer = nil;
-    if (self.context) {
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:FOREGROUND_FETCH_INTERVAL target:self selector:@selector(fetch:) userInfo:nil repeats:YES];
-    }
-    //alert all other listeners
-    NSDictionary *info = self.context ? @{ContextKey : self.context} : nil;
-    [[NSNotificationCenter defaultCenter] postNotificationName:Notification object:self userInfo:info];
-}
-
-
-#pragma mark - Flickr downloads
-
-- (void) fetch {
-    [self.session getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
-        if(![downloadTasks count]){
-            NSURLSessionDownloadTask *task = [self.session downloadTaskWithURL:[FlickrFetcher URLforRecentGeoreferencedPhotos]];
-            task.taskDescription = FETCH;
-            [task resume];
-        } else {
-            for (NSURLSessionDownloadTask *task in downloadTasks)[task resume];
-        }
-    }];
-}
-
-- (void) fetch:(NSTimer*)timer {
-    [self fetch];
-}
-
-
-- (NSURLSession*)session {
-    if (!_session) {
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            NSURLSessionConfiguration *urlSessionConfig = [NSURLSessionConfiguration backgroundSessionConfiguration:FETCH];
-            urlSessionConfig.allowsCellularAccess = NO;
-            _session = [NSURLSession sessionWithConfiguration:urlSessionConfig
-                                                                   delegate:self
-                                                              delegateQueue:nil];
-        });
-    }
-    return _session;
-
-}
-
-- (void) loadPhotosFromLocalURL:(NSURL *)url intoContext:(NSManagedObjectContext*)context andThenExecuteBlock:(void(^)())whenDone{
-    if (context) {
-        NSArray *photos = [self photoArrayAtURL:url];
-        [context performBlock:^{
-            [Photo loadPhotosFromArray:photos intoNSMOC:context];
-            if (whenDone) whenDone(); //TODO seee if can refactor this out
-        }];
-    } else {
-        if (whenDone) whenDone();
-    }
-}
-
-/* Get photo array from local url*/
-- (NSArray*) photoArrayAtURL:(NSURL *)url{
-    NSArray *photos;
-    
-    NSDictionary *list;
-    NSData *JSONData = [NSData dataWithContentsOfURL:url];
-    if (JSONData) {
-        list = [NSJSONSerialization JSONObjectWithData:JSONData options:0 error:NULL];
-    }
-    photos = [list valueForKeyPath:FLICKR_RESULTS_PHOTOS];
-    return photos;
-}
-
-- (void) uponCompletionOfDownloads {
-    if (self.bgSessionCompletionHandler) {
-        [self.session getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
-            if(![downloadTasks count]){
-                void (^completionHandler)() = self.bgSessionCompletionHandler;
-                self.bgSessionCompletionHandler = nil;
-                NSLog(@"backgroundsession done donwloading");
-                if (completionHandler)  completionHandler();
-            }
-        }];
-    }
-}
-
-
-#pragma mark - URLSession delegates
-
-- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location{
-    if ([downloadTask.taskDescription isEqualToString:FETCH]) {
-        [self loadPhotosFromLocalURL:location intoContext:self.context andThenExecuteBlock:^{
-            [self uponCompletionOfDownloads];
-        }];
-    }
-}
-
-- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite{
-    
-}
-
-- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didResumeAtOffset:(int64_t)fileOffset expectedTotalBytes:(int64_t)expectedTotalBytes{
-    
-}
+//- (void) setContext:(NSManagedObjectContext*)photoContext {
+//    _context = photoContext;
+//    [self.timer invalidate];
+//    self.timer = nil;
+//    if (self.context) {
+//        self.timer = [NSTimer scheduledTimerWithTimeInterval:FOREGROUND_FETCH_INTERVAL target:self selector:@selector(fetch:) userInfo:nil repeats:YES];
+//    }
+//    //alert all other listeners
+//    NSDictionary *info = self.context ? @{ContextKey : self.context} : nil;
+//    [[NSNotificationCenter defaultCenter] postNotificationName:Notification object:self userInfo:info];
+//}
+//
+//
+//#pragma mark - Flickr downloads
+//
+//- (void) fetch {
+//    [self.session getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
+//        if(![downloadTasks count]){
+//            NSURLSessionDownloadTask *task = [self.session downloadTaskWithURL:[FlickrFetcher URLforRecentGeoreferencedPhotos]];
+//            task.taskDescription = FETCH;
+//            [task resume];
+//        } else {
+//            for (NSURLSessionDownloadTask *task in downloadTasks)[task resume];
+//        }
+//    }];
+//}
+//
+//- (void) fetch:(NSTimer*)timer {
+//    [self fetch];
+//}
+//
+//
+//- (NSURLSession*)session {
+//    if (!_session) {
+//        static dispatch_once_t onceToken;
+//        dispatch_once(&onceToken, ^{
+//            NSURLSessionConfiguration *urlSessionConfig = [NSURLSessionConfiguration backgroundSessionConfiguration:FETCH];
+//            urlSessionConfig.allowsCellularAccess = NO;
+//            _session = [NSURLSession sessionWithConfiguration:urlSessionConfig
+//                                                                   delegate:self
+//                                                              delegateQueue:nil];
+//        });
+//    }
+//    return _session;
+//
+//}
+//
+//- (void) loadPhotosFromLocalURL:(NSURL *)url intoContext:(NSManagedObjectContext*)context andThenExecuteBlock:(void(^)())whenDone{
+//    if (context) {
+//        NSArray *photos = [self photoArrayAtURL:url];
+//        [context performBlock:^{
+//            [Photo loadPhotosFromArray:photos intoNSMOC:context];
+//            if (whenDone) whenDone(); //TODO seee if can refactor this out
+//        }];
+//    } else {
+//        if (whenDone) whenDone();
+//    }
+//}
+//
+///* Get photo array from local url*/
+//- (NSArray*) photoArrayAtURL:(NSURL *)url{
+//    NSArray *photos;
+//    
+//    NSDictionary *list;
+//    NSData *JSONData = [NSData dataWithContentsOfURL:url];
+//    if (JSONData) {
+//        list = [NSJSONSerialization JSONObjectWithData:JSONData options:0 error:NULL];
+//    }
+//    photos = [list valueForKeyPath:FLICKR_RESULTS_PHOTOS];
+//    return photos;
+//}
+//
+//- (void) uponCompletionOfDownloads {
+//    if (self.bgSessionCompletionHandler) {
+//        [self.session getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
+//            if(![downloadTasks count]){
+//                void (^completionHandler)() = self.bgSessionCompletionHandler;
+//                self.bgSessionCompletionHandler = nil;
+//                NSLog(@"backgroundsession done donwloading");
+//                if (completionHandler)  completionHandler();
+//            }
+//        }];
+//    }
+//}
+//
+//
+//#pragma mark - URLSession delegates
+//
+//- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location{
+//    if ([downloadTask.taskDescription isEqualToString:FETCH]) {
+//        [self loadPhotosFromLocalURL:location intoContext:self.context andThenExecuteBlock:^{
+//            [self uponCompletionOfDownloads];
+//        }];
+//    }
+//}
+//
+//- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite{
+//    
+//}
+//
+//- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didResumeAtOffset:(int64_t)fileOffset expectedTotalBytes:(int64_t)expectedTotalBytes{
+//    
+//}
 
 
 @end

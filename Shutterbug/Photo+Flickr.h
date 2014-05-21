@@ -13,6 +13,7 @@
 + (Photo *)photoWithFlickrInfo:(NSDictionary *)photoDictionary
         inManagedObjectContext:(NSManagedObjectContext *)context;
 
-+ (void) loadPhotosFromArray:(NSArray*)photos intoNSMOC:(NSManagedObjectContext *)context;
+//+ (void) loadPhoto:(Photo*)photo intoNSMOC:(NSManagedObjectContext *)context;
++ (void) findRegionFromPlaceID:(NSString*)placeID intoContext:(NSManagedObjectContext*)context forPhoto:(Photo*)photo;
 
 @end

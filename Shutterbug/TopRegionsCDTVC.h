@@ -1,5 +1,5 @@
 //
-//  JustPostedFlickrPhotosTVC.h
+//  TopRegionsCDTVC.h
 //  Shutterbug
 //
 //  Created by CS193p Instructor on 5/2/14.
@@ -8,9 +8,9 @@
 
 #import "FlickrPhotosTVC.h"
 
-@interface JustPostedFlickrPhotosTVC : FlickrPhotosTVC
+@interface TopRegionsCDTVC : FlickrPhotosTVC
 
-@property (nonatomic, strong) NSManagedObjectContext *context;
+//@property (nonatomic, strong) NSManagedObjectContext *context;
 
 
 @end

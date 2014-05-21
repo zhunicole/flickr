@@ -98,10 +98,10 @@
             </objects>
             <point key="canvasLocation" x="983" y="-745"/>
         </scene>
-        <!--Just Posted Flickr PhotosTVC - Top Places-->
+        <!--Top RegionsCDTVC - Top Places-->
         <scene sceneID="Kt0-Kj-xXK">
             <objects>
-                <tableViewController id="yhr-hu-vFg" customClass="JustPostedFlickrPhotosTVC" sceneMemberID="viewController">
+                <tableViewController id="yhr-hu-vFg" customClass="TopRegionsCDTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="jQC-Lr-ukz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -145,6 +145,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
                             <action selector="fetchPlaces" destination="yhr-hu-vFg" eventType="valueChanged" id="VSV-g2-jf7"/>
+                            <action selector="refresh" destination="yhr-hu-vFg" eventType="valueChanged" id="ZCs-3L-X5w"/>
                         </connections>
                     </refreshControl>
                 </tableViewController>
