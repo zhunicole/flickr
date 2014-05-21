@@ -115,7 +115,6 @@
 
 + (NSString *)extractCountryNameFromPlaceInformation:(NSDictionary*)place
 {
-    //TODO this might be wrong
     return [[[place valueForKeyPath:FLICKR_PLACE_NAME] componentsSeparatedByString:@", "] lastObject];
 }
 
